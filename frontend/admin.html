@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Console — Valley Care Group</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔐</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --midnight: #0D1B2A; --cobalt: #1B4F72; --sky: #2E86C1;
+      --gold: #C9A84C; --gold-light: #F0C040; --cream: #FAF7F2;
+      --red: #C0392B; --green: #1E8449; --amber: #D4AC0D;
+      --text: #1a1a2e; --text-mid: #555; --text-light: #888;
+      --border: #e2e2e2; --radius: 10px; --radius-sm: 6px;
+    }
+    body { font-family: 'Inter', sans-serif; background: #f0f2f5; color: var(--text); min-height: 100vh; }
+
+    /* ── LOGIN ──────────────────────────────────── */
+    #login-screen {
+      min-height: 100vh; display: flex; align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--midnight) 0%, var(--cobalt) 100%);
+    }
+    .login-card {
+      background: #fff; border-radius: 16px; padding: 3rem 2.5rem;
+      width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .login-logo { font-size: 2.5rem; margin-bottom: 0.75rem; text-align: center; }
+    .login-title { font-size: 1.4rem; font-weight: 700; text-align: center; color: var(--midnight); margin-bottom: 0.25rem; }
+    .login-sub { font-size: 0.85rem; color: var(--text-light); margin-bottom: 2rem; text-align: center; }
+    .field-label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-mid); margin-bottom: 0.4rem; }
+    .login-input {
+      width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); font-size: 0.95rem; font-family: 'Inter', sans-serif;
+      outline: none; transition: border-color 0.2s; margin-bottom: 1.25rem;
+    }
+    .login-input:focus { border-color: var(--cobalt); }
+    .login-btn {
+      width: 100%; padding: 0.85rem;
+      background: linear-gradient(135deg, var(--midnight), var(--cobalt));
+      color: #fff; border: none; border-radius: var(--radius-sm);
+      font-size: 0.95rem; font-weight: 700; font-family: 'Inter', sans-serif;
+      cursor: pointer; transition: opacity 0.2s; display: flex;
+      align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .login-btn:hover:not(:disabled) { opacity: 0.9; }
+    .login-btn:disabled { opacity: 0.6; cursor: default; }
+    .alert {
+      padding: 0.7rem 1rem; border-radius: var(--radius-sm);
+      font-size: 0.85rem; margin-bottom: 1rem; display: none;
+    }
+    .alert-error { background: #fdf0ef; border: 1px solid #f5c6c3; color: var(--red); }
+    .alert-warn  { background: #fefbe8; border: 1px solid #f5e77b; color: #7D6608; }
+
+    /* ── APP SHELL ──────────────────────────────── */
+    #admin-app { display: none; }
+    .admin-layout { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+
+    /* ── SIDEBAR ────────────────────────────────── */
+    .sidebar {
+      background: var(--midnight); color: #fff;
+      display: flex; flex-direction: column;
+      position: sticky; top: 0; height: 100vh;
+    }
+    .sidebar-logo {
+      padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar-logo-icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
+    .sidebar-logo-name { font-size: 0.9rem; font-weight: 700; }
+    .sidebar-logo-sub  { font-size: 0.7rem; opacity: 0.4; text-transform: uppercase; letter-spacing: 0.08em; }
+    .sidebar-nav { flex: 1; padding: 1rem 0.75rem; }
+    .sidebar-nav-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.7rem 0.85rem; border-radius: var(--radius-sm);
+      cursor: pointer; font-size: 0.875rem; font-weight: 500;
+      opacity: 0.6; transition: all 0.15s; color: #fff;
+      text-decoration: none; border: none; background: none; width: 100%;
+    }
+    .sidebar-nav-item:hover { opacity: 0.9; background: rgba(255,255,255,0.08); }
+    .sidebar-nav-item.active { opacity: 1; background: rgba(255,255,255,0.12); }
+    .sidebar-nav-icon { font-size: 1rem; width: 1.25rem; text-align: center; }
+    .sidebar-bottom { padding: 1rem 0.75rem; border-top: 1px solid rgba(255,255,255,0.08); }
+    .sidebar-footer { font-size: 0.7rem; opacity: 0.3; padding: 0.5rem 0.85rem; }
+
+    /* ── MAIN CONTENT ───────────────────────────── */
+    .admin-main { padding: 2rem 2.5rem; overflow-y: auto; }
+    .page-section { display: none; }
+    .page-section.active { display: block; }
+
+    /* ── PAGE HEADER ────────────────────────────── */
+    .page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 2rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border);
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .page-header-title { font-size: 1.5rem; font-weight: 700; color: var(--midnight); }
+    .page-header-sub   { font-size: 0.85rem; color: var(--text-light); margin-top: 0.2rem; }
+
+    /* ── BUTTONS ────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.6rem 1.25rem; border-radius: var(--radius-sm);
+      font-size: 0.85rem; font-weight: 600; font-family: 'Inter', sans-serif;
+      cursor: pointer; border: none; transition: all 0.15s; text-decoration: none;
+    }
+    .btn-primary { background: var(--cobalt); color: #fff; }
+    .btn-primary:hover { background: var(--midnight); }
+    .btn-danger  { background: var(--red); color: #fff; }
+    .btn-danger:hover { background: #a93226; }
+    .btn-ghost   { background: transparent; color: var(--text-mid); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { background: var(--cream); }
+    .btn-sm { padding: 0.38rem 0.8rem; font-size: 0.78rem; }
+    .btn:disabled { opacity: 0.5; cursor: default; }
+
+    /* ── STATS ──────────────────────────────────── */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+    .stat-card { background: #fff; border-radius: var(--radius); padding: 1.25rem 1.5rem; border: 1px solid var(--border); }
+    .stat-card-num   { font-size: 2rem; font-weight: 700; color: var(--cobalt); line-height: 1; }
+    .stat-card-label { font-size: 0.78rem; color: var(--text-light); margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .stat-card-icon  { font-size: 1.5rem; float: right; opacity: 0.25; }
+
+    /* ── TABLE ──────────────────────────────────── */
+    .table-card { background: #fff; border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; }
+    .table-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .table-card-title { font-size: 1rem; font-weight: 600; }
+    .search-input {
+      padding: 0.5rem 0.9rem; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border); font-size: 0.85rem;
+      font-family: 'Inter', sans-serif; outline: none; width: 220px;
+    }
+    .search-input:focus { border-color: var(--cobalt); }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      padding: 0.7rem 1.25rem; text-align: left; font-size: 0.75rem;
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--text-light); background: #f8f9fa; border-bottom: 1px solid var(--border);
+    }
+    tbody tr { border-bottom: 1px solid #f0f0f0; transition: background 0.1s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #fafbfc; }
+    tbody td { padding: 0.85rem 1.25rem; font-size: 0.875rem; vertical-align: middle; }
+    .job-title-cell   { font-weight: 600; color: var(--midnight); }
+    .job-home-cell    { font-size: 0.8rem; color: var(--text-mid); margin-top: 0.15rem; }
+    .action-btns { display: flex; gap: 0.4rem; align-items: center; }
+    .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-light); }
+    .empty-state-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+
+    /* ── BADGES ─────────────────────────────────── */
+    .badge {
+      display: inline-flex; align-items: center;
+      padding: 0.22rem 0.65rem; border-radius: 20px;
+      font-size: 0.72rem; font-weight: 600;
+    }
+    .badge-ft      { background: #EBF5FB; color: #1B4F72; }
+    .badge-pt      { background: #FEF9E7; color: #7D6608; }
+    .badge-bank    { background: #F4ECF7; color: #6C3483; }
+    .badge-nursing { background: #F0E6FF; color: #6C3483; }
+    .badge-care    { background: #E8F8F5; color: var(--green); }
+    .badge-support { background: #FEF5E7; color: #935116; }
+    .badge-admin2  { background: #F2F3F4; color: #2C3E50; border: 1px solid #ddd; }
+    .badge-active  { background: #D5F5E3; color: var(--green); }
+    .badge-hidden  { background: #F2F3F4; color: #888; }
+
+    /* ── DRAWER ─────────────────────────────────── */
+    .drawer-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45); z-index: 1000;
+      align-items: flex-start; justify-content: flex-end;
+    }
+    .drawer-overlay.open { display: flex; }
+    .drawer-panel {
+      background: #fff; width: 520px; max-width: 100%;
+      height: 100vh; overflow-y: auto;
+      box-shadow: -8px 0 40px rgba(0,0,0,0.2);
+      padding: 2rem; animation: drawerSlide 0.25s ease-out;
+    }
+    @keyframes drawerSlide {
+      from { transform: translateX(30px); opacity: 0; }
+      to   { transform: translateX(0);    opacity: 1; }
+    }
+    .drawer-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.75rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);
+    }
+    .drawer-title  { font-size: 1.1rem; font-weight: 700; }
+    .drawer-close  { background: none; border: none; cursor: pointer; font-size: 1.1rem; padding: 0.35rem; border-radius: 4px; }
+    .drawer-close:hover { background: var(--cream); }
+    .drawer-footer { display: flex; gap: 0.75rem; justify-content: flex-end; padding-top: 1.25rem; margin-top: 1.5rem; border-top: 1px solid var(--border); }
+
+    /* ── FORM FIELDS ────────────────────────────── */
+    .field-group { margin-bottom: 1.25rem; }
+    .field-label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-mid); margin-bottom: 0.4rem; }
+    .field-label span { color: var(--red); }
+    .field-input, .field-select, .field-textarea {
+      width: 100%; padding: 0.65rem 0.9rem; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); font-size: 0.875rem;
+      font-family: 'Inter', sans-serif; color: var(--text); outline: none;
+      transition: border-color 0.2s; background: #fff;
+    }
+    .field-input:focus, .field-select:focus, .field-textarea:focus { border-color: var(--cobalt); }
+    .field-textarea { resize: vertical; min-height: 90px; }
+    .field-help { font-size: 0.75rem; color: var(--text-light); margin-top: 0.3rem; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* ── CONFIRM DIALOG ─────────────────────────── */
+    .confirm-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5); z-index: 2000;
+      align-items: center; justify-content: center;
+    }
+    .confirm-overlay.open { display: flex; }
+    .confirm-card {
+      background: #fff; border-radius: 12px; padding: 2rem;
+      max-width: 420px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      text-align: center;
+    }
+    .confirm-icon  { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .confirm-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .confirm-msg   { font-size: 0.875rem; color: var(--text-mid); margin-bottom: 1.75rem; line-height: 1.6; }
+    .confirm-btns  { display: flex; gap: 0.75rem; justify-content: center; }
+
+    /* ── TOAST ──────────────────────────────────── */
+    .toast {
+      position: fixed; bottom: 2rem; right: 2rem;
+      background: var(--midnight); color: #fff;
+      padding: 0.85rem 1.5rem; border-radius: var(--radius-sm);
+      font-size: 0.875rem; display: flex; align-items: center; gap: 0.65rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      transform: translateY(120%); opacity: 0;
+      transition: all 0.35s cubic-bezier(0.16,1,0.3,1); z-index: 3000;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast-danger { background: var(--red); }
+
+    /* ── API STATUS BADGE ───────────────────────── */
+    .api-status {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.72rem; font-weight: 600; padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+    }
+    .api-status.online  { background: #D5F5E3; color: var(--green); }
+    .api-status.offline { background: #FADBD8; color: var(--red); }
+    .spinner { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Tab styles */
+    .ctab {
+      padding: 0.6rem 1.25rem; background: none; border: none;
+      border-bottom: 2.5px solid transparent; cursor: pointer;
+      font-size: 0.875rem; font-weight: 600; color: var(--text-light);
+      margin-bottom: -2px; font-family: 'Inter', sans-serif; transition: all 0.15s;
+    }
+    .ctab:hover { color: var(--text); }
+    .ctab.active { color: var(--cobalt); border-bottom-color: var(--cobalt); }
+
+    @media (max-width: 768px) {
+      .admin-layout { grid-template-columns: 1fr; }
+      .sidebar { height: auto; position: static; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .admin-main { padding: 1.25rem; }
+      .drawer-panel { width: 100%; height: 80vh; border-radius: 16px 16px 0 0; position: fixed; bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     LOGIN SCREEN
+════════════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">🔐</div>
+    <div class="login-title">Admin Console</div>
+    <div class="login-sub">Valley Care Group &mdash; Authorised Staff Only</div>
+
+    <div class="alert alert-error" id="login-error"></div>
+    <div class="alert alert-warn" id="login-warn"></div>
+
+    <form onsubmit="doLogin(event)" autocomplete="on">
+      <label class="field-label" for="admin-pass">Password</label>
+      <input class="login-input" type="password" id="admin-pass"
+             placeholder="Enter admin password" autocomplete="current-password" required>
+      <button type="submit" class="login-btn" id="login-btn">
+        Sign In →
+      </button>
+    </form>
+
+    <p style="font-size:0.72rem;color:#bbb;margin-top:1.5rem;text-align:center">
+      This system is for authorised Valley Care Group staff only.<br>
+      Unauthorised access attempts are logged.
+    </p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     ADMIN APP
+════════════════════════════════════════════ -->
+<div id="admin-app">
+  <div class="admin-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">🏡</div>
+        <div class="sidebar-logo-name">Valley Care Group</div>
+        <div class="sidebar-logo-sub">Admin Console</div>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="sidebar-nav-item active" data-section="dashboard" onclick="showSection('dashboard')">
+          <span class="sidebar-nav-icon">📊</span> Dashboard
+        </button>
+        <button class="sidebar-nav-item" data-section="jobs" onclick="showSection('jobs')">
+          <span class="sidebar-nav-icon">💼</span> Job Listings
+        </button>
+        <button class="sidebar-nav-item" data-section="content" onclick="showSection('content')">
+          <span class="sidebar-nav-icon">✏️</span> Content Manager
+        </button>
+        <a href="jobs.html" target="_blank" class="sidebar-nav-item">
+          <span class="sidebar-nav-icon">🔗</span> View Careers Page
+        </a>
+        <a href="index.html" target="_blank" class="sidebar-nav-item">
+          <span class="sidebar-nav-icon">🏠</span> View Website
+        </a>
+      </nav>
+      <div class="sidebar-bottom">
+        <button class="sidebar-nav-item" onclick="doLogout()" style="width:100%">
+          <span class="sidebar-nav-icon">🚪</span> Sign Out
+        </button>
+        <div class="sidebar-footer">Valley Care Group &copy; 2025</div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="admin-main">
+
+      <!-- ── DASHBOARD ── -->
+      <div class="page-section active" id="section-dashboard">
+        <div class="page-header">
+          <div>
+            <div class="page-header-title">Dashboard</div>
+            <div class="page-header-sub">Overview of your job listings</div>
+          </div>
+          <div style="display:flex;gap:0.75rem;align-items:center">
+            <span class="api-status" id="api-status-badge">Connecting…</span>
+            <a href="jobs.html" target="_blank" class="btn btn-ghost">🔗 Careers Page</a>
+          </div>
+        </div>
+
+        <div class="stats-row" id="stats-row">
+          <div class="stat-card"><div class="stat-card-icon">💼</div><div class="stat-card-num" id="stat-total">—</div><div class="stat-card-label">Total Listings</div></div>
+          <div class="stat-card"><div class="stat-card-icon">🏡</div><div class="stat-card-num" id="stat-glan">—</div><div class="stat-card-label">Glan-yr-Afon</div></div>
+          <div class="stat-card"><div class="stat-card-icon">🏠</div><div class="stat-card-num" id="stat-llys">—</div><div class="stat-card-label">Llys Gwyn</div></div>
+          <div class="stat-card"><div class="stat-card-icon">🏗️</div><div class="stat-card-num" id="stat-pentwyn">—</div><div class="stat-card-label">Pentwyn</div></div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-card-header">
+            <span class="table-card-title">Active Listings</span>
+            <button class="btn btn-primary btn-sm" onclick="showSection('jobs')">Manage Jobs →</button>
+          </div>
+          <table><thead><tr><th>Role</th><th>Home</th><th>Type</th><th>Status</th></tr></thead>
+            <tbody id="dash-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── JOBS SECTION ── -->
+      <div class="page-section" id="section-jobs">
+        <div class="page-header">
+          <div>
+            <div class="page-header-title">Job Listings</div>
+            <div class="page-header-sub" id="jobs-sub">Loading…</div>
+          </div>
+          <button class="btn btn-primary" onclick="openDrawer(null)">+ Add New Job</button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-card-header">
+            <span class="table-card-title">All Listings</span>
+            <input type="search" class="search-input" placeholder="Search jobs…"
+                   oninput="filterTable(this.value)" id="jobs-search">
+          </div>
+          <table>
+            <thead><tr>
+              <th>Role &amp; Home</th><th>Type</th><th>Category</th>
+              <th>Status</th><th>Posted</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="jobs-tbody"></tbody>
+          </table>
+          <div class="empty-state" id="jobs-empty" style="display:none">
+            <div class="empty-state-icon">💼</div>
+            <p>No job listings found. <a href="#" onclick="openDrawer(null);return false">Add one now</a>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CONTENT MANAGER ── -->
+      <div class="page-section" id="section-content">
+        <div class="page-header">
+          <div>
+            <div class="page-header-title">Content Manager</div>
+            <div class="page-header-sub">Edit homepage text, announcement bar, stats, and testimonials</div>
+          </div>
+          <a href="/" target="_blank" class="btn btn-ghost">🔗 Preview Site</a>
+        </div>
+
+        <!-- Tabs -->
+        <div style="display:flex;gap:0;margin-bottom:1.75rem;border-bottom:2px solid var(--border)">
+          <button class="ctab active" data-tab="site" onclick="switchCTab('site')"> Site Settings</button>
+          <button class="ctab" data-tab="homepage" onclick="switchCTab('homepage')"> Homepage</button>
+          <button class="ctab" data-tab="testimonials" onclick="switchCTab('testimonials')"> Testimonials</button>
+        </div>
+
+        <!-- Site Settings -->
+        <div id="ctab-site" class="ctab-pane">
+          <div class="table-card" style="padding:1.75rem;max-width:640px">
+            <div class="field-group">
+              <label class="field-label">Announcement Bar</label>
+              <label style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.75rem;font-size:0.875rem;color:var(--text-mid)">
+                <input type="checkbox" id="cs-ann-on" style="width:15px;height:15px"> Show announcement bar at top of homepage
+              </label>
+              <input class="field-input" type="text" id="cs-ann-text" placeholder="Announcement message..." style="margin-bottom:0.5rem">
+              <input class="field-input" type="text" id="cs-ann-link" placeholder="Link URL e.g. homes/pentwyn.html">
+              <div class="field-help">Link that ‘Register your interest’ points to.</div>
+            </div>
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label" for="cs-phone">Phone Number</label>
+                <input class="field-input" type="tel" id="cs-phone" placeholder="01633 680217">
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="cs-email">Email Address</label>
+                <input class="field-input" type="email" id="cs-email" placeholder="care@valleycare.wales">
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="cs-addr">Address</label>
+              <input class="field-input" type="text" id="cs-addr" placeholder="Off Ford Road, Blackwood NP12 3WA">
+            </div>
+            <button class="btn btn-primary" onclick="saveSite()">&#128190; Save Site Settings</button>
+          </div>
+        </div>
+
+        <!-- Homepage -->
+        <div id="ctab-homepage" class="ctab-pane" style="display:none">
+          <div class="table-card" style="padding:1.75rem;max-width:660px">
+            <div class="field-group">
+              <label class="field-label" for="ch-badge">Hero Badge Text</label>
+              <input class="field-input" type="text" id="ch-badge" placeholder="CIW Registered · South Wales · ..."><div class="field-help">Small text in the gold pill above the main heading.</div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Hero Title (3 lines)</label>
+              <input class="field-input" type="text" id="ch-l1" placeholder="Line 1 e.g. Where Every" style="margin-bottom:0.5rem">
+              <input class="field-input" type="text" id="ch-l2" placeholder="Line 2 e.g. Day Feels (shown in gold italic)" style="margin-bottom:0.5rem">
+              <input class="field-input" type="text" id="ch-l3" placeholder="Final gold word e.g. Home.">
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="ch-sub">Hero Subtitle</label>
+              <textarea class="field-textarea" id="ch-sub" style="min-height:80px"></textarea>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem">
+              <!-- Stats 1–4 -->
+              <div id="stat-fields"></div>
+              <div id="stat-fields-2"></div>
+            </div>
+            <div id="stat-fields-all" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem"></div>
+            <button class="btn btn-primary" onclick="saveHomepage()">&#128190; Save Homepage Content</button>
+          </div>
+        </div>
+
+        <!-- Testimonials -->
+        <div id="ctab-testimonials" class="ctab-pane" style="display:none">
+          <div class="table-card">
+            <div class="table-card-header">
+              <span class="table-card-title">Testimonials</span>
+              <button class="btn btn-primary btn-sm" onclick="openTestiDrawer(null)">+ Add Testimonial</button>
+            </div>
+            <table>
+              <thead><tr><th>Name</th><th>Quote (preview)</th><th>Home</th><th>Actions</th></tr></thead>
+              <tbody id="testi-tbody"></tbody>
+            </table>
+            <div class="empty-state" id="testi-empty" style="display:none">
+              <div class="empty-state-icon">💬</div><p>No testimonials yet. <a href="#" onclick="openTestiDrawer(null);return false">Add one</a>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- Testimonial Add/Edit Drawer -->
+<div class="drawer-overlay" id="testi-overlay" onclick="closeTestiDrawer()">
+  <div class="drawer-panel" onclick="event.stopPropagation()">
+    <div class="drawer-header">
+      <span class="drawer-title" id="testi-drawer-title">Add Testimonial</span>
+      <button class="drawer-close" onclick="closeTestiDrawer()">&#10005;</button>
+    </div>
+    <div class="alert alert-error" id="testi-error"></div>
+    <form id="testi-form" onsubmit="saveTestimonial(event)">
+      <input type="hidden" id="testi-id">
+      <div class="field-group">
+        <label class="field-label">Quote Text <span>*</span></label>
+        <textarea class="field-textarea" id="tf-text" required placeholder="The reviewer's words... (do not add quotation marks)" style="min-height:110px"></textarea>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label" for="tf-name">Name <span>*</span></label>
+          <input class="field-input" type="text" id="tf-name" required placeholder="e.g. Sarah M.">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="tf-initials">Initials</label>
+          <input class="field-input" type="text" id="tf-initials" placeholder="S" maxlength="2">
+          <div class="field-help">Shown in the avatar circle.</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="tf-relation">Relationship <span>*</span></label>
+        <input class="field-input" type="text" id="tf-relation" required placeholder="e.g. Daughter of resident">
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="tf-home">Care Home</label>
+        <select class="field-select" id="tf-home">
+          <option>Glan-yr-Afon Nursing Home</option>
+          <option>Llys Gwyn Residential Home</option>
+          <option>Pentwyn Nursing Home</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="tf-color">Avatar Colour</label>
+        <input class="field-input" type="color" id="tf-color" value="#1B4F72" style="height:40px;padding:4px">
+      </div>
+      <div class="drawer-footer">
+        <button type="button" class="btn btn-ghost" onclick="closeTestiDrawer()">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="testi-save-btn">+ Add Testimonial</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawerIfOutside(event)">
+  <div class="drawer-panel">
+    <div class="drawer-header">
+      <span class="drawer-title" id="drawer-title">Add New Job</span>
+      <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    </div>
+
+    <div class="alert alert-error" id="drawer-error"></div>
+
+    <form id="job-form" onsubmit="saveJob(event)">
+      <input type="hidden" id="job-id">
+
+      <div class="field-group">
+        <label class="field-label" for="f-title">Job Title <span>*</span></label>
+        <input class="field-input" type="text" id="f-title"
+               placeholder="e.g. Registered General Nurse (RGN)" required maxlength="200">
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label" for="f-home">Home / Location <span>*</span></label>
+          <select class="field-select" id="f-home" required>
+            <option value="">Select…</option>
+            <option value="glan">Glan-yr-Afon Nursing Home</option>
+            <option value="llys">Llys Gwyn Residential Home</option>
+            <option value="pentwyn">Pentwyn Nursing Home (Cardiff)</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="f-type">Employment Type <span>*</span></label>
+          <select class="field-select" id="f-type" required>
+            <option value="">Select…</option>
+            <option value="Full-Time">Full-Time</option>
+            <option value="Part-Time">Part-Time</option>
+            <option value="Bank">Bank / Flexible</option>
+            <option value="Voluntary">Voluntary</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label" for="f-category">Category <span>*</span></label>
+          <select class="field-select" id="f-category" required>
+            <option value="">Select…</option>
+            <option value="nursing">Nursing</option>
+            <option value="care">Care</option>
+            <option value="support">Support</option>
+            <option value="admin">Admin</option>
+            <option value="kitchen">Kitchen / Domestic</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="f-status">Visibility</label>
+          <select class="field-select" id="f-status">
+            <option value="active">Active (visible on site)</option>
+            <option value="hidden">Hidden</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="f-location">Address / Postcode</label>
+        <input class="field-input" type="text" id="f-location"
+               placeholder="e.g. Blackwood NP12 3WA" maxlength="200">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="f-desc">Job Description <span>*</span></label>
+        <textarea class="field-textarea" id="f-desc" required
+                  placeholder="Describe the role, responsibilities, and what you're looking for…"
+                  style="min-height:130px" maxlength="2000"></textarea>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="f-reqs">Requirements / Tags</label>
+        <input class="field-input" type="text" id="f-reqs"
+               placeholder="NMC Registered, Team Leadership, Medication Management"
+               maxlength="500">
+        <div class="field-help">Comma-separated. These appear as tags on the public job card.</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label" for="f-posted">Posted Date</label>
+          <input class="field-input" type="month" id="f-posted">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="f-btn">Apply Button Label</label>
+          <input class="field-input" type="text" id="f-btn"
+                 placeholder="Apply Now" maxlength="60">
+        </div>
+      </div>
+
+      <div class="drawer-footer">
+        <button type="button" class="btn btn-ghost" onclick="closeDrawer()">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="save-btn">💾 Save Job</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     DELETE CONFIRM
+════════════════════════════════════════════ -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-card">
+    <div class="confirm-icon">🗑️</div>
+    <div class="confirm-title">Delete this listing?</div>
+    <div class="confirm-msg" id="confirm-msg"></div>
+    <div class="confirm-btns">
+      <button class="btn btn-ghost" onclick="closeConfirm()">Cancel</button>
+      <button class="btn btn-danger" id="confirm-ok-btn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════ -->
+<script src="assets/js/config.js"></script>
+<script>
+'use strict';
+
+// ── Config ──────────────────────────────────────────────────────────────────
+// window.API_BASE is set by assets/js/config.js (empty = same-origin, full URL = separate backend)
+const API = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : '';
+
+const HOME_LABELS = {
+  glan:    'Glan-yr-Afon Nursing Home, Blackwood',
+  llys:    'Llys Gwyn Residential Home',
+  pentwyn: 'Pentwyn Nursing Home, Cardiff',
+};
+
+// ── Token storage (sessionStorage — cleared when tab closes) ────────────────
+function getToken()       { return sessionStorage.getItem('vcg_token'); }
+function setToken(t)      { sessionStorage.setItem('vcg_token', t); }
+function clearToken()     { sessionStorage.removeItem('vcg_token'); }
+
+// ── API helper ───────────────────────────────────────────────────────────────
+async function api(method, path, body) {
+  const headers = { 'Content-Type': 'application/json' };
+  const token = getToken();
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+
+  const res = await fetch(API + path, {
+    method,
+    headers,
+    body: body ? JSON.stringify(body) : undefined,
+  });
+
+  if (res.status === 401) {
+    // Token expired or invalid — send back to login
+    clearToken();
+    showLogin('Session expired. Please sign in again.');
+    throw new Error('Unauthorised');
+  }
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+  return data;
+}
+
+// ── Login ────────────────────────────────────────────────────────────────────
+async function doLogin(e) {
+  e.preventDefault();
+  const btn  = document.getElementById('login-btn');
+  const err  = document.getElementById('login-error');
+  const pw   = document.getElementById('admin-pass').value;
+  err.style.display = 'none';
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Signing in…';
+
+  try {
+    const { token } = await api('POST', '/api/auth/login', { password: pw });
+    setToken(token);
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-app').style.display = 'block';
+    document.getElementById('admin-pass').value = '';
+    checkApiStatus();
+    loadAll();
+  } catch (ex) {
+    err.textContent = ex.message || 'Sign-in failed. Please try again.';
+    err.style.display = 'block';
+    document.getElementById('admin-pass').value = '';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Sign In →';
+  }
+}
+
+function doLogout() {
+  clearToken();
+  showLogin();
+}
+
+function showLogin(msg) {
+  document.getElementById('admin-app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('admin-pass').value = '';
+  const warn = document.getElementById('login-warn');
+  if (msg) { warn.textContent = msg; warn.style.display = 'block'; }
+  else warn.style.display = 'none';
+  document.getElementById('login-error').style.display = 'none';
+}
+
+// On page load — check if already signed in
+window.addEventListener('DOMContentLoaded', async () => {
+  const token = getToken();
+  if (token) {
+    try {
+      await api('POST', '/api/auth/verify');
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('admin-app').style.display = 'block';
+      checkApiStatus();
+      loadAll();
+    } catch {
+      clearToken();
+    }
+  }
+});
+
+// ── Navigation ───────────────────────────────────────────────────────────────
+function showSection(name) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidebar-nav-item[data-section]').forEach(n => n.classList.remove('active'));
+  document.getElementById('section-' + name).classList.add('active');
+  document.querySelector(`[data-section="${name}"]`)?.classList.add('active');
+}
+
+// ── Load data ─────────────────────────────────────────────────────────────────
+let allJobs = [];
+let filterText = '';
+
+async function loadAll() {
+  try {
+    allJobs = await api('GET', '/api/admin/jobs');
+    renderDashboard();
+    renderJobsTable();
+  } catch (ex) {
+    showToast('Error loading jobs: ' + ex.message, true);
+  }
+}
+
+// ── API status indicator ──────────────────────────────────────────────────────
+async function checkApiStatus() {
+  const badge = document.getElementById('api-status-badge');
+  try {
+    const res = await fetch(API + '/api/jobs');
+    if (res.ok) {
+      badge.className = 'api-status online';
+      badge.textContent = '● API online';
+    } else {
+      throw new Error();
+    }
+  } catch {
+    badge.className = 'api-status offline';
+    badge.textContent = '● API offline';
+  }
+}
+
+// ── Dashboard ────────────────────────────────────────────────────────────────
+function renderDashboard() {
+  const active  = allJobs.filter(j => j.status === 'active');
+  document.getElementById('stat-total').textContent   = active.length;
+  document.getElementById('stat-glan').textContent    = active.filter(j=>j.home==='glan').length;
+  document.getElementById('stat-llys').textContent    = active.filter(j=>j.home==='llys').length;
+  document.getElementById('stat-pentwyn').textContent = active.filter(j=>j.home==='pentwyn').length;
+
+  const tbody = document.getElementById('dash-tbody');
+  if (allJobs.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#aaa;padding:2rem">No listings yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = allJobs.slice(0, 8).map(j => `
+    <tr>
+      <td><div class="job-title-cell">${esc(j.title)}</div></td>
+      <td><span style="font-size:0.8rem;color:var(--text-mid)">${esc(HOME_LABELS[j.home]||j.home)}</span></td>
+      <td>${typeBadge(j.type)}</td>
+      <td>${statusBadge(j.status)}</td>
+    </tr>
+  `).join('');
+}
+
+// ── Jobs table ───────────────────────────────────────────────────────────────
+function renderJobsTable() {
+  const q = filterText.toLowerCase();
+  const visible = q
+    ? allJobs.filter(j =>
+        j.title.toLowerCase().includes(q) ||
+        (HOME_LABELS[j.home]||'').toLowerCase().includes(q) ||
+        j.category.toLowerCase().includes(q))
+    : allJobs;
+
+  document.getElementById('jobs-sub').textContent =
+    `${allJobs.length} total · ${allJobs.filter(j=>j.status==='active').length} active`;
+
+  const tbody = document.getElementById('jobs-tbody');
+  const empty = document.getElementById('jobs-empty');
+
+  if (visible.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = visible.map(j => `
+    <tr id="row-${j.id}">
+      <td>
+        <div class="job-title-cell">${esc(j.title)}</div>
+        <div class="job-home-cell">🏡 ${esc(HOME_LABELS[j.home]||j.home)}</div>
+      </td>
+      <td>${typeBadge(j.type)}</td>
+      <td>${catBadge(j.category)}</td>
+      <td>${statusBadge(j.status)}</td>
+      <td style="font-size:0.8rem;color:var(--text-light)">${fmtPosted(j.posted)}</td>
+      <td>
+        <div class="action-btns">
+          <button class="btn btn-ghost btn-sm" onclick="openDrawer('${j.id}')">✏️ Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="confirmDelete('${j.id}','${esc(j.title).replace(/'/g,"\\'")}')">🗑️</button>
+          <button class="btn btn-ghost btn-sm" title="${j.status==='active'?'Hide':'Publish'}"
+                  onclick="toggleStatus('${j.id}','${j.status==='active'?'hidden':'active'}')">
+            ${j.status==='active'?'🙈 Hide':'👁 Show'}
+          </button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function filterTable(val) {
+  filterText = val.trim();
+  renderJobsTable();
+}
+
+// ── Drawer ───────────────────────────────────────────────────────────────────
+function openDrawer(jobId) {
+  document.getElementById('job-form').reset();
+  document.getElementById('drawer-error').style.display = 'none';
+  document.getElementById('save-btn').disabled = false;
+
+  if (jobId) {
+    const job = allJobs.find(j => j.id === jobId);
+    if (!job) return;
+    document.getElementById('drawer-title').textContent = 'Edit Job Listing';
+    document.getElementById('save-btn').textContent = '💾 Save Changes';
+    document.getElementById('job-id').value  = job.id;
+    document.getElementById('f-title').value = job.title;
+    document.getElementById('f-home').value  = job.home;
+    document.getElementById('f-type').value  = job.type;
+    document.getElementById('f-category').value = job.category;
+    document.getElementById('f-status').value   = job.status;
+    document.getElementById('f-location').value = job.location || '';
+    document.getElementById('f-desc').value     = job.desc;
+    document.getElementById('f-reqs').value     = job.reqs || '';
+    document.getElementById('f-posted').value   = job.posted || '';
+    document.getElementById('f-btn').value      = job.btnLabel || 'Apply Now';
+  } else {
+    document.getElementById('drawer-title').textContent = 'Add New Job';
+    document.getElementById('save-btn').textContent = '+ Add Job';
+    document.getElementById('job-id').value = '';
+    // Default: current month
+    const now = new Date();
+    document.getElementById('f-posted').value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+    document.getElementById('f-btn').value = 'Apply Now';
+  }
+
+  document.getElementById('drawer-overlay').classList.add('open');
+}
+
+function closeDrawer() {
+  document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+function closeDrawerIfOutside(e) {
+  if (e.target === document.getElementById('drawer-overlay')) closeDrawer();
+}
+
+async function saveJob(e) {
+  e.preventDefault();
+  const btn   = document.getElementById('save-btn');
+  const errEl = document.getElementById('drawer-error');
+  const editId = document.getElementById('job-id').value;
+  const homeVal = document.getElementById('f-home').value;
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Saving…';
+  errEl.style.display = 'none';
+
+  const payload = {
+    title:    document.getElementById('f-title').value.trim(),
+    home:     homeVal,
+    homeLabel: HOME_LABELS[homeVal] || homeVal,
+    location: document.getElementById('f-location').value.trim(),
+    type:     document.getElementById('f-type').value,
+    category: document.getElementById('f-category').value,
+    desc:     document.getElementById('f-desc').value.trim(),
+    reqs:     document.getElementById('f-reqs').value.trim(),
+    posted:   document.getElementById('f-posted').value,
+    status:   document.getElementById('f-status').value,
+    btnLabel: document.getElementById('f-btn').value.trim() || 'Apply Now',
+  };
+
+  try {
+    if (editId) {
+      const updated = await api('PUT', `/api/admin/jobs/${editId}`, payload);
+      const idx = allJobs.findIndex(j => j.id === editId);
+      if (idx > -1) allJobs[idx] = updated;
+      showToast('✅ Job updated');
+    } else {
+      const created = await api('POST', '/api/admin/jobs', payload);
+      allJobs.push(created);
+      showToast('✅ Job added');
+    }
+    closeDrawer();
+    renderJobsTable();
+    renderDashboard();
+  } catch (ex) {
+    errEl.textContent = ex.message || 'Save failed. Please try again.';
+    errEl.style.display = 'block';
+    btn.disabled = false;
+    btn.innerHTML = editId ? '💾 Save Changes' : '+ Add Job';
+  }
+}
+
+// ── Delete ───────────────────────────────────────────────────────────────────
+let pendingDeleteId = null;
+
+function confirmDelete(id, title) {
+  pendingDeleteId = id;
+  document.getElementById('confirm-msg').textContent =
+    `You are about to permanently delete "${title}". This cannot be undone.`;
+  document.getElementById('confirm-overlay').classList.add('open');
+}
+
+function closeConfirm() {
+  pendingDeleteId = null;
+  document.getElementById('confirm-overlay').classList.remove('open');
+}
+
+document.getElementById('confirm-ok-btn').addEventListener('click', async () => {
+  if (!pendingDeleteId) return;
+  const btn = document.getElementById('confirm-ok-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>';
+
+  try {
+    await api('DELETE', `/api/admin/jobs/${pendingDeleteId}`);
+    allJobs = allJobs.filter(j => j.id !== pendingDeleteId);
+    closeConfirm();
+    renderJobsTable();
+    renderDashboard();
+    showToast('🗑️ Job deleted');
+  } catch (ex) {
+    showToast('Delete failed: ' + ex.message, true);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Delete';
+    pendingDeleteId = null;
+  }
+});
+
+// ── Toggle status ─────────────────────────────────────────────────────────────
+async function toggleStatus(id, newStatus) {
+  try {
+    const updated = await api('PATCH', `/api/admin/jobs/${id}/status`, { status: newStatus });
+    const idx = allJobs.findIndex(j => j.id === id);
+    if (idx > -1) allJobs[idx] = updated;
+    renderJobsTable();
+    renderDashboard();
+    showToast(newStatus === 'active' ? '👁 Job is now visible on site' : '🙈 Job is now hidden');
+  } catch (ex) {
+    showToast('Failed: ' + ex.message, true);
+  }
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function esc(str) {
+  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function fmtPosted(ym) {
+  if (!ym) return '—';
+  const [y, m] = ym.split('-');
+  const mths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return (mths[parseInt(m,10)-1] || '') + ' ' + y;
+}
+
+function typeBadge(t) {
+  const m = {'Full-Time':['badge-ft','Full-Time'],'Part-Time':['badge-pt','Part-Time'],'Bank':['badge-bank','Bank'],'Voluntary':['badge-admin2','Vol.']};
+  const [cls, label] = m[t] || ['badge-admin2', t];
+  return `<span class="badge ${cls}">${label}</span>`;
+}
+
+function catBadge(c) {
+  const m = {nursing:['badge-nursing','Nursing'],care:['badge-care','Care'],support:['badge-support','Support'],admin:['badge-admin2','Admin'],kitchen:['badge-admin2','Kitchen']};
+  const [cls, label] = m[c] || ['badge-admin2', c];
+  return `<span class="badge ${cls}">${label}</span>`;
+}
+
+function statusBadge(s) {
+  return s === 'active'
+    ? `<span class="badge badge-active">● Active</span>`
+    : `<span class="badge badge-hidden">Hidden</span>`;
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg, danger) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (danger ? ' toast-danger' : '');
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ── CONTENT MANAGEMENT ────────────────────────────────────────────────────────
+let cData = {};
+
+async function loadContent() {
+  try {
+    cData = await api('GET', '/api/content');
+    populateSite(cData.site || {});
+    populateHomepage(cData.homepage || {});
+    renderTestiTable(cData.testimonials || []);
+  } catch (ex) { showToast('Failed to load content: ' + ex.message, true); }
+}
+
+// Override showSection to load content when switching to it
+const _origShowSection = showSection;
+showSection = function(name) {
+  _origShowSection(name);
+  if (name === 'content') loadContent();
+};
+
+function switchCTab(tab) {
+  document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.ctab-pane').forEach(p => p.style.display = 'none');
+  document.querySelector(`.ctab[data-tab="${tab}"]`).classList.add('active');
+  document.getElementById('ctab-' + tab).style.display = '';
+}
+
+// ── Site Settings ─────────────────────────────────────────────────────────────
+function populateSite(s) {
+  document.getElementById('cs-ann-on').checked   = s.announcementEnabled !== false;
+  document.getElementById('cs-ann-text').value   = s.announcementText || '';
+  document.getElementById('cs-ann-link').value   = s.announcementLink || '';
+  document.getElementById('cs-phone').value      = s.phone || '';
+  document.getElementById('cs-email').value      = s.email || '';
+  document.getElementById('cs-addr').value       = s.address || '';
+}
+
+async function saveSite() {
+  try {
+    const payload = {
+      announcementEnabled: document.getElementById('cs-ann-on').checked,
+      announcementText:    document.getElementById('cs-ann-text').value.trim(),
+      announcementLink:    document.getElementById('cs-ann-link').value.trim(),
+      phone:               document.getElementById('cs-phone').value.trim(),
+      email:               document.getElementById('cs-email').value.trim(),
+      address:             document.getElementById('cs-addr').value.trim(),
+    };
+    await api('PUT', '/api/admin/content/site', payload);
+    showToast('✅ Site settings saved — refresh the homepage to see changes');
+  } catch (ex) { showToast('Save failed: ' + ex.message, true); }
+}
+
+// ── Homepage ──────────────────────────────────────────────────────────────────
+function populateHomepage(h) {
+  document.getElementById('ch-badge').value = h.heroBadge || '';
+  document.getElementById('ch-l1').value    = h.heroLine1 || '';
+  document.getElementById('ch-l2').value    = h.heroLine2 || '';
+  document.getElementById('ch-l3').value    = h.heroLine3 || '';
+  document.getElementById('ch-sub').value   = h.heroSubtitle || '';
+
+  // Build stat fields dynamically
+  const container = document.getElementById('stat-fields-all');
+  container.innerHTML = [1,2,3,4].map(i => `
+    <div>
+      <label class="field-label">Stat ${i}</label>
+      <div style="display:flex;gap:0.4rem">
+        <input class="field-input" type="number" id="ch-sv${i}" value="${h[`stat${i}Value`]??''}" placeholder="0" style="width:65px">
+        <input class="field-input" type="text"   id="ch-ss${i}" value="${esc(h[`stat${i}Suffix`]??'')}" placeholder="+" style="width:42px">
+        <input class="field-input" type="text"   id="ch-sl${i}" value="${esc(h[`stat${i}Label`]??'')}"  placeholder="Label">
+      </div>
+    </div>`).join('');
+}
+
+async function saveHomepage() {
+  try {
+    const payload = {
+      heroBadge:   document.getElementById('ch-badge').value.trim(),
+      heroLine1:   document.getElementById('ch-l1').value.trim(),
+      heroLine2:   document.getElementById('ch-l2').value.trim(),
+      heroLine3:   document.getElementById('ch-l3').value.trim(),
+      heroSubtitle:document.getElementById('ch-sub').value.trim(),
+    };
+    for (let i = 1; i <= 4; i++) {
+      payload[`stat${i}Value`]  = parseInt(document.getElementById(`ch-sv${i}`).value) || 0;
+      payload[`stat${i}Suffix`] = document.getElementById(`ch-ss${i}`).value.trim();
+      payload[`stat${i}Label`]  = document.getElementById(`ch-sl${i}`).value.trim();
+    }
+    await api('PUT', '/api/admin/content/homepage', payload);
+    showToast('✅ Homepage content saved — refresh the homepage to see changes');
+  } catch (ex) { showToast('Save failed: ' + ex.message, true); }
+}
+
+// ── Testimonials ──────────────────────────────────────────────────────────────
+function renderTestiTable(testis) {
+  const tbody = document.getElementById('testi-tbody');
+  const empty = document.getElementById('testi-empty');
+  if (!testis.length) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  tbody.innerHTML = testis.map(t => `
+    <tr>
+      <td><strong>${esc(t.name)}</strong><br><span style="font-size:0.78rem;color:var(--text-light)">${esc(t.relation)}</span></td>
+      <td style="max-width:280px;font-size:0.8rem;color:var(--text-mid);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">"${esc(t.text.slice(0,80))}…"</td>
+      <td style="font-size:0.8rem">${esc(t.home)}</td>
+      <td><div class="action-btns">
+        <button class="btn btn-ghost btn-sm" onclick="openTestiDrawer('${t.id}')">✏️ Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteTesti('${t.id}','${esc(t.name).replace(/'/g,"\\'")}')">🗑️</button>
+      </div></td>
+    </tr>`).join('');
+}
+
+function openTestiDrawer(id) {
+  document.getElementById('testi-form').reset();
+  document.getElementById('testi-error').style.display = 'none';
+  document.getElementById('testi-id').value = id || '';
+  document.getElementById('tf-color').value = '#1B4F72';
+
+  if (id) {
+    const t = (cData.testimonials || []).find(x => x.id === id);
+    if (!t) return;
+    document.getElementById('testi-drawer-title').textContent = 'Edit Testimonial';
+    document.getElementById('testi-save-btn').textContent = '💾 Save Changes';
+    document.getElementById('tf-text').value     = t.text;
+    document.getElementById('tf-name').value     = t.name;
+    document.getElementById('tf-initials').value = t.initials || '';
+    document.getElementById('tf-relation').value = t.relation;
+    document.getElementById('tf-home').value     = t.home;
+    document.getElementById('tf-color').value    = t.avatarColor || '#1B4F72';
+  } else {
+    document.getElementById('testi-drawer-title').textContent = 'Add Testimonial';
+    document.getElementById('testi-save-btn').textContent = '+ Add Testimonial';
+  }
+  document.getElementById('testi-overlay').classList.add('open');
+}
+
+function closeTestiDrawer() {
+  document.getElementById('testi-overlay').classList.remove('open');
+}
+
+async function saveTestimonial(e) {
+  e.preventDefault();
+  const btn  = document.getElementById('testi-save-btn');
+  const errEl = document.getElementById('testi-error');
+  const id   = document.getElementById('testi-id').value;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>';
+  errEl.style.display = 'none';
+
+  const payload = {
+    text:        document.getElementById('tf-text').value.trim(),
+    name:        document.getElementById('tf-name').value.trim(),
+    initials:    document.getElementById('tf-initials').value.trim(),
+    relation:    document.getElementById('tf-relation').value.trim(),
+    home:        document.getElementById('tf-home').value,
+    avatarColor: document.getElementById('tf-color').value,
+  };
+
+  try {
+    if (id) {
+      const updated = await api('PUT', `/api/admin/content/testimonials/${id}`, payload);
+      const idx = (cData.testimonials||[]).findIndex(t => t.id === id);
+      if (idx > -1) cData.testimonials[idx] = updated;
+      showToast('✅ Testimonial updated');
+    } else {
+      const created = await api('POST', '/api/admin/content/testimonials', payload);
+      (cData.testimonials = cData.testimonials || []).push(created);
+      showToast('✅ Testimonial added');
+    }
+    closeTestiDrawer();
+    renderTestiTable(cData.testimonials);
+  } catch (ex) {
+    errEl.textContent = ex.message;
+    errEl.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = id ? '💾 Save Changes' : '+ Add Testimonial';
+  }
+}
+
+async function deleteTesti(id, name) {
+  if (!confirm(`Delete testimonial from "${name}"? This cannot be undone.`)) return;
+  try {
+    await api('DELETE', `/api/admin/content/testimonials/${id}`);
+    cData.testimonials = (cData.testimonials||[]).filter(t => t.id !== id);
+    renderTestiTable(cData.testimonials);
+    showToast('🗑️ Testimonial deleted');
+  } catch (ex) { showToast('Delete failed: ' + ex.message, true); }
+}
+</script>
+</body>
+</html>

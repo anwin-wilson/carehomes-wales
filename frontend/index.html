@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valley Care Group — Compassionate Care Homes in South Wales</title>
+  <meta name="description" content="Valley Care Group — where every day feels like home. Premium nursing and residential care across South Wales: Glan-yr-Afon Nursing Home, Llys Gwyn Residential Home, and the upcoming Pentwyn Nursing Home in Cardiff.">
+  <meta name="keywords" content="care home Wales, nursing home Blackwood, Llys Gwyn, Glan-yr-Afon, Pentwyn, residential care South Wales, Cardiff care home">
+  <meta property="og:title" content="Valley Care Group — Care Homes in Wales">
+  <meta property="og:description" content="Premium, compassionate care homes across South Wales. CIW Registered. 9.9 rated on carehome.co.uk.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏡</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <link rel="stylesheet" href="assets/css/signature.css">
+</head>
+<body>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+
+  <!-- Navigation -->
+  <nav class="navbar transparent" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">🏡</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Valley Care Group</span>
+          <span class="nav-logo-tagline">Caring with Heart · Since 2005</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="homes.html">Our Homes</a>
+        <a href="services.html">Services</a>
+        <a href="jobs.html">Careers</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <button class="nav-cta-btn mag-btn" onclick="document.getElementById('enquiry').scrollIntoView({behavior:'smooth'})">Care Enquiry</button>
+      <div class="hamburger" id="hamburger" onclick="toggleMobileNav()"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="index.html" onclick="toggleMobileNav()">Home</a>
+    <a href="about.html" onclick="toggleMobileNav()">About Us</a>
+    <a href="homes.html" onclick="toggleMobileNav()">Our Homes</a>
+    <a href="services.html" onclick="toggleMobileNav()">Services</a>
+    <a href="jobs.html" onclick="toggleMobileNav()">Careers</a>
+    <a href="contact.html" onclick="toggleMobileNav()">Contact</a>
+    <a href="#enquiry" onclick="toggleMobileNav()" style="color:var(--clr-gold)">Care Enquiry</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       HERO — SIGNATURE CINEMATIC
+  ═══════════════════════════════════════════════ -->
+  <section class="hero-sig" id="hero">
+    <div class="hero-sig-bg" id="hero-bg"></div>
+    <div class="hero-sig-overlay"></div>
+    <div class="hero-sig-particles" id="particles"></div>
+
+    <!-- Decorative monogram -->
+    <div class="hero-monogram" aria-hidden="true">V</div>
+
+    <!-- Main content -->
+    <div class="hero-sig-content">
+      <div class="hero-sig-badge">
+        <span class="hero-badge-dot"></span>
+        <span id="hero-badge-text">CIW Registered · South Wales · Est. 2005 · 9.9 Rating</span>
+      </div>
+
+      <h1 class="hero-sig-title">
+        <span class="hero-title-line" id="ht1">Where Every</span>
+        <span class="hero-title-line" id="ht2">Day Feels</span>
+        <span class="hero-title-line" style="color:#fff;font-style:normal">Like <em id="ht3" style="color:var(--clr-gold-light);font-style:italic">Home.</em></span>
+      </h1>
+
+      <p class="hero-sig-subtitle" id="hero-subtitle">
+        Premium residential and nursing care across South Wales. Three unique homes, one unwavering promise — to care for your loved ones as if they were our own family.
+      </p>
+
+      <div class="hero-sig-actions">
+        <button class="btn btn-gold btn-lg mag-btn" onclick="document.getElementById('our-homes').scrollIntoView({behavior:'smooth'})">
+          🏡 Explore Our Homes
+        </button>
+        <button class="btn btn-outline btn-lg mag-btn" onclick="document.getElementById('enquiry').scrollIntoView({behavior:'smooth'})">
+          💬 Make an Enquiry
+        </button>
+      </div>
+
+      <div class="hero-sig-stats" id="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num"><span class="count-num" id="sv1" data-target="20">0</span><sup id="ss1">+</sup></div>
+          <div class="hero-stat-label" id="sl1">Years of Care</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num"><span class="count-num" id="sv2" data-target="3">0</span><sup id="ss2"></sup></div>
+          <div class="hero-stat-label" id="sl2">Care Homes</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num"><span class="count-num" id="sv3" data-target="120">0</span><sup id="ss3">+</sup></div>
+          <div class="hero-stat-label" id="sl3">Residents Cared For</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num"><span class="count-num" id="sv4" data-target="41">0</span><sup id="ss4"></sup></div>
+          <div class="hero-stat-label" id="sl4">5-Star Reviews</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating rating badge -->
+    <div class="hero-float-badge">
+      <div class="float-badge-num">9.9</div>
+      <div class="float-badge-label">Outstanding<br>carehome.co.uk</div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="hero-sig-scroll">
+      <div class="hero-scroll-line"></div>
+      <div class="hero-scroll-text">Scroll to explore</div>
+    </div>
+
+    <!-- Welsh hills SVG -->
+    <div class="welsh-hills-hero">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 110" preserveAspectRatio="none" style="fill:#FAF7F2">
+        <path d="M0,110 L0,78 C60,65 130,42 210,50 C290,58 360,82 450,72 C540,62 590,28 690,20 C790,12 850,30 940,42 C1030,54 1080,68 1160,58 C1240,48 1310,22 1380,30 C1410,34 1430,44 1440,48 L1440,110 Z"/>
+        <path d="M0,110 L0,88 C80,78 150,60 240,66 C330,72 390,90 480,84 C570,78 620,52 720,44 C820,36 880,52 960,62 C1040,72 1090,82 1170,72 C1250,62 1320,38 1390,44 C1420,47 1435,56 1440,60 L1440,110 Z" style="fill:rgba(250,247,242,0.6)"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       ACCREDITATION STRIP
+  ═══════════════════════════════════════════════ -->
+  <div class="accred-sig-strip fade-up">
+    <div class="accred-sig-inner">
+      <div class="accred-sig-item">
+        <div class="accred-sig-icon-wrap" data-edit-key="index.accred.1.icon">🏛️</div>
+        <div>
+          <div class="accred-sig-title" data-edit-key="index.accred.1.title">CIW Registered</div>
+          <div class="accred-sig-sub" data-edit-key="index.accred.1.sub">Care Inspectorate Wales</div>
+        </div>
+      </div>
+      <div class="accred-sig-item">
+        <div class="accred-sig-icon-wrap">⭐</div>
+        <div>
+          <div class="accred-sig-title">9.9 / 10 Rating</div>
+          <div class="accred-sig-sub">carehome.co.uk · 41 Reviews</div>
+        </div>
+      </div>
+      <div class="accred-sig-item">
+        <div class="accred-sig-icon-wrap" data-edit-key="index.accred.3.icon">🩺</div>
+        <div>
+          <div class="accred-sig-title" data-edit-key="index.accred.3.title">Dual Registered</div>
+          <div class="accred-sig-sub" data-edit-key="index.accred.3.sub">Nursing &amp; Residential Care</div>
+        </div>
+      </div>
+      <div class="accred-sig-item">
+        <div class="accred-sig-icon-wrap">🚫</div>
+        <div>
+          <div class="accred-sig-title">No Agency Staff</div>
+          <div class="accred-sig-sub">Continuity of Care Policy</div>
+        </div>
+      </div>
+      <div class="accred-sig-item">
+        <div class="accred-sig-icon-wrap" data-edit-key="index.accred.5.icon">🌿</div>
+        <div>
+          <div class="accred-sig-title" data-edit-key="index.accred.5.title">Person-Centred</div>
+          <div class="accred-sig-sub" data-edit-key="index.accred.5.sub">Tailored Care Plans</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       OUR HOMES — BENTO GRID
+  ═══════════════════════════════════════════════ -->
+  <section class="bento-section section" id="our-homes">
+    <div class="container">
+      <div class="text-center fade-up">
+        <span class="section-eyebrow" data-edit-key="index.homes.eyebrow">Our Homes</span>
+        <h2 class="section-title" data-edit-key="index.homes.title">Three Homes, <em>One Promise</em></h2>
+        <p class="section-subtitle" style="margin:0 auto" data-edit-key="index.homes.sub">Each of our homes carries the same soul — warmth, dignity, and genuine care. Explore what makes each one special.</p>
+      </div>
+
+      <div class="bento-grid">
+
+        <!-- Glan-yr-Afon — TALL card (left, spans both rows) -->
+        <div class="bento-card bento-card--tall tilt-card fade-up fade-up-delay-1">
+          <img class="bento-card-img" src="assets/images/hero_bg.png" alt="Glan-yr-Afon Nursing Home, Blackwood — Welsh countryside setting">
+          <div class="bento-card-overlay"></div>
+          <!-- Rating pill -->
+          <div class="bento-rating">
+            <div class="bento-rating-num">9.9</div>
+            <div class="bento-rating-stars">★★★★★</div>
+            <div class="bento-rating-label">41 Reviews</div>
+          </div>
+          <div class="bento-card-body">
+            <div class="bento-card-status bento-status-open">
+              <span data-edit-key="index.homes.glan.status-icon">●</span> <span data-edit-key="index.homes.glan.status-text">Currently Open</span>
+            </div>
+            <div class="bento-card-name" data-edit-key="index.homes.glan.name">Glan-yr-Afon<br>Nursing Home</div>
+            <div class="bento-card-type" data-edit-key="index.homes.glan.type">Nursing Home · Blackwood, Caerphilly</div>
+            <div class="bento-card-desc" data-edit-key="index.homes.glan.desc">
+              Nestled in beautiful Blackwood countryside, Glan-yr-Afon is our flagship nursing home. Our RGN-led teams deliver 24/7 specialist care — from complex nursing needs to compassionate palliative support — in a warm, homely environment that has earned an outstanding reputation.
+            </div>
+            <div class="bento-card-tags">
+              <span class="bento-tag">Nursing Care</span>
+              <span class="bento-tag">Dementia Support</span>
+              <span class="bento-tag">Palliative Care</span>
+              <span class="bento-tag">Respite</span>
+              <span class="bento-tag">24/7 RGN</span>
+            </div>
+            <div class="bento-card-actions">
+              <a href="homes/glan-yr-afon.html" class="bento-btn bento-btn-gold">Explore Home →</a>
+              <button class="bento-btn bento-btn-outline" onclick="document.getElementById('enquiry').scrollIntoView({behavior:'smooth'})">Make Enquiry</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Llys Gwyn — top right -->
+        <div class="bento-card tilt-card fade-up fade-up-delay-2">
+          <img class="bento-card-img" src="assets/images/interior.png" alt="Llys Gwyn Residential Home — warm and welcoming interior">
+          <div class="bento-card-overlay"></div>
+          <div class="bento-card-body">
+            <div class="bento-card-status bento-status-open">
+              <span data-edit-key="index.homes.llys.status-icon">●</span> <span data-edit-key="index.homes.llys.status-text">Currently Open</span>
+            </div>
+            <div class="bento-card-name" data-edit-key="index.homes.llys.name">Llys Gwyn<br>Residential Home</div>
+            <div class="bento-card-type" data-edit-key="index.homes.llys.type">Residential Home · Wales</div>
+            <div class="bento-card-desc" data-edit-key="index.homes.llys.desc">A warm, family-oriented community where residents truly feel at home. Vibrant activities, no agency staff, and a dedicated team who know and love each resident.</div>
+            <div class="bento-card-tags">
+              <span class="bento-tag">Residential Care</span>
+              <span class="bento-tag">Activities</span>
+              <span class="bento-tag">Family Visits</span>
+            </div>
+            <div class="bento-card-actions">
+              <a href="homes/llys-gwyn.html" class="bento-btn bento-btn-gold">Explore Home →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pentwyn — bottom right -->
+        <div class="bento-card tilt-card fade-up fade-up-delay-3" style="border:2px solid rgba(201,168,76,0.2)">
+          <img class="bento-card-img" src="assets/images/caregiver.png" alt="Pentwyn Nursing Home Cardiff — opening soon">
+          <div class="bento-card-overlay" style="background:linear-gradient(to top,rgba(13,27,42,0.99) 0%,rgba(13,27,42,0.7) 50%,rgba(13,27,42,0.25) 100%)"></div>
+          <!-- Countdown badge -->
+          <div class="bento-rating" style="background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.35)">
+            <div class="bento-rating-num" style="font-size:1rem;color:var(--clr-gold-light)">2025</div>
+            <div class="bento-rating-stars" style="color:var(--clr-gold)">🏗️</div>
+            <div class="bento-rating-label" style="color:rgba(201,168,76,0.7)">Opening</div>
+          </div>
+          <div class="bento-card-body">
+            <div class="bento-card-status bento-status-soon">
+              <span data-edit-key="index.homes.pentwyn.status-icon">🏗️</span> <span data-edit-key="index.homes.pentwyn.status-text">Coming Soon</span>
+            </div>
+            <div class="bento-card-name" data-edit-key="index.homes.pentwyn.name">Pentwyn<br>Nursing Home</div>
+            <div class="bento-card-type" data-edit-key="index.homes.pentwyn.type">Dual Registered · Marshfield Road, Cardiff CF3</div>
+            <div class="bento-card-desc" data-edit-key="index.homes.pentwyn.desc">Our newest jewel — a purpose-built, state-of-the-art nursing &amp; residential home coming to Cardiff. Register your priority interest today.</div>
+            <div class="bento-card-tags">
+              <span class="bento-tag">Dual Registered</span>
+              <span class="bento-tag">Nursing &amp; Residential</span>
+              <span class="bento-tag">Cardiff</span>
+            </div>
+            <div class="bento-card-actions">
+              <a href="homes/pentwyn.html" class="bento-btn bento-btn-gold">Register Interest →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align:center;margin-top:2.5rem" class="fade-up">
+        <a href="homes.html" class="btn btn-primary mag-btn">View All Homes &amp; Compare →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       SERVICES MARQUEE
+  ═══════════════════════════════════════════════ -->
+  <!-- Welsh hills divider — cream to midnight -->
+  <div class="welsh-hills-divider" style="background:var(--clr-cream)">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" style="fill:var(--clr-midnight)">
+      <path d="M0,80 L0,40 C120,20 240,0 380,8 C520,16 600,50 720,44 C840,38 920,10 1060,4 C1200,-2 1330,20 1440,30 L1440,80 Z"/>
+    </svg>
+  </div>
+
+  <div class="marquee-section" id="services">
+    <div class="marquee-title-bar fade-up">
+      <span class="section-eyebrow" style="color:var(--clr-gold-light);justify-content:center;display:flex" data-edit-key="index.services.eyebrow">What We Offer</span>
+      <h2 class="section-title" style="color:#fff;text-align:center;margin-bottom:0.5rem" data-edit-key="index.services.title">Everything Your Loved One <em style="color:var(--clr-gold-light)">Needs to Thrive</em></h2>
+      <p style="color:rgba(255,255,255,0.5);text-align:center;font-size:0.9rem;max-width:560px;margin:0 auto" data-edit-key="index.services.sub">From specialist clinical care to joyful daily activities — our services are as individual as the people we support.</p>
+    </div>
+
+    <div class="marquee-wrapper">
+      <!-- Row 1 — Forward -->
+      <div class="marquee-row marquee-row--fwd">
+        <div class="marquee-item"><span class="marquee-item-icon">🩺</span> 24/7 Nursing Care</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🏠</span> Residential Care</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🧠</span> Dementia Support</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🌿</span> Palliative &amp; End-of-Life Care</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🔄</span> Respite &amp; Convalescence</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🍽️</span> Freshly Cooked Meals</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🎭</span> Activities Programme</div>
+        <div class="marquee-item"><span class="marquee-item-icon">✂️</span> Hairdresser &amp; Chiropodist</div>
+        <div class="marquee-item"><span class="marquee-item-icon">📖</span> Books, Games &amp; Newspapers</div>
+        <div class="marquee-item"><span class="marquee-item-icon">💻</span> Video Conferencing</div>
+        <!-- Duplicated for infinite loop -->
+        <div class="marquee-item"><span class="marquee-item-icon">🩺</span> 24/7 Nursing Care</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🏠</span> Residential Care</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🧠</span> Dementia Support</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🌿</span> Palliative &amp; End-of-Life Care</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🔄</span> Respite &amp; Convalescence</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🍽️</span> Freshly Cooked Meals</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🎭</span> Activities Programme</div>
+        <div class="marquee-item"><span class="marquee-item-icon">✂️</span> Hairdresser &amp; Chiropodist</div>
+        <div class="marquee-item"><span class="marquee-item-icon">📖</span> Books, Games &amp; Newspapers</div>
+        <div class="marquee-item"><span class="marquee-item-icon">💻</span> Video Conferencing</div>
+      </div>
+      <!-- Row 2 — Reverse -->
+      <div class="marquee-row marquee-row--rev">
+        <div class="marquee-item"><span class="marquee-item-icon">🙏</span> Religious &amp; Cultural Support</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🛍️</span> Mobile Shop</div>
+        <div class="marquee-item"><span class="marquee-item-icon">💊</span> Medication Management</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🧺</span> Laundry &amp; Housekeeping</div>
+        <div class="marquee-item"><span class="marquee-item-icon">👨‍👩‍👧</span> Open Visiting Policy</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🌹</span> Marie Curie Partnership</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🎵</span> Music &amp; Entertainment</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🏅</span> NVQ-Trained Staff</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🛁</span> Personal Care</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🌸</span> Outings &amp; Events</div>
+        <!-- Duplicated -->
+        <div class="marquee-item"><span class="marquee-item-icon">🙏</span> Religious &amp; Cultural Support</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🛍️</span> Mobile Shop</div>
+        <div class="marquee-item"><span class="marquee-item-icon">💊</span> Medication Management</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🧺</span> Laundry &amp; Housekeeping</div>
+        <div class="marquee-item"><span class="marquee-item-icon">👨‍👩‍👧</span> Open Visiting Policy</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🌹</span> Marie Curie Partnership</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🎵</span> Music &amp; Entertainment</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🏅</span> NVQ-Trained Staff</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🛁</span> Personal Care</div>
+        <div class="marquee-item"><span class="marquee-item-icon">🌸</span> Outings &amp; Events</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding-bottom:4rem" class="fade-up">
+      <a href="services.html" class="btn btn-gold mag-btn">View All Services →</a>
+    </div>
+  </div>
+
+  <!-- Welsh hills divider — midnight to white -->
+  <div class="welsh-hills-divider" style="background:var(--clr-midnight)">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" style="fill:#fff">
+      <path d="M0,80 L0,45 C100,62 220,80 360,70 C500,60 580,28 720,22 C860,16 940,38 1080,52 C1220,66 1340,60 1440,56 L1440,80 Z"/>
+    </svg>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       STORY — DIAGONAL SPLIT SECTION
+  ═══════════════════════════════════════════════ -->
+  <section class="story-section section" id="why-us">
+    <div class="container">
+      <div class="story-grid">
+
+        <div class="story-left fade-up">
+          <span class="section-eyebrow" data-edit-key="index.story.eyebrow">Our Story &amp; Promise</span>
+          <h2 class="section-title" data-edit-key="index.story.title">A Legacy of<br><em>Trusted Care</em></h2>
+          <p style="color:rgba(255,255,255,0.65);line-height:1.8;font-size:0.95rem;margin-bottom:0" data-edit-key="index.story.desc">For over two decades, Valley Care Group has been the trusted choice for families across South Wales. Our foundation is built on compassion, clinical excellence, and a firm belief that every person deserves to live — not just exist — in care.</p>
+
+          <div class="story-stats">
+            <div class="story-stat">
+              <div class="story-stat-num"><span class="count-num" data-target="20">0</span><span style="font-size:1.8rem">+</span></div>
+              <div class="story-stat-label">Years of Service</div>
+            </div>
+            <div class="story-stat">
+              <div class="story-stat-num"><span class="count-num" data-target="9">0</span><span style="font-size:1.5rem">.9</span></div>
+              <div class="story-stat-label">carehome.co.uk Rating</div>
+            </div>
+            <div class="story-stat">
+              <div class="story-stat-num"><span class="count-num" data-target="41">0</span></div>
+              <div class="story-stat-label">5-Star Reviews</div>
+            </div>
+            <div class="story-stat">
+              <div class="story-stat-num"><span class="count-num" data-target="0">0</span></div>
+              <div class="story-stat-label">Agency Staff Used</div>
+            </div>
+          </div>
+
+          <div class="story-proof">
+            <div class="story-proof-item">
+              <span class="story-proof-icon" data-edit-key="index.story.p1.icon">👩‍⚕️</span>
+              <div>
+                <div class="story-proof-text" data-edit-key="index.story.p1.title">RGN Nurse-Led Teams, 24/7</div>
+                <div class="story-proof-sub" data-edit-key="index.story.p1.sub">Clinical excellence in every shift, every day</div>
+              </div>
+            </div>
+            <div class="story-proof-item">
+              <span class="story-proof-icon" data-edit-key="index.story.p2.icon">🚫</span>
+              <div>
+                <div class="story-proof-text" data-edit-key="index.story.p2.title">Zero Agency Staff Policy</div>
+                <div class="story-proof-sub" data-edit-key="index.story.p2.sub">The same familiar faces, every single day</div>
+              </div>
+            </div>
+            <div class="story-proof-item">
+              <span class="story-proof-icon" data-edit-key="index.story.p3.icon">📋</span>
+              <div>
+                <div class="story-proof-text" data-edit-key="index.story.p3.title">Bespoke Care Plans</div>
+                <div class="story-proof-sub" data-edit-key="index.story.p3.sub">Tailored individually — not a template</div>
+              </div>
+            </div>
+            <div class="story-proof-item">
+              <span class="story-proof-icon" data-edit-key="index.story.p4.icon">🏛️</span>
+              <div>
+                <div class="story-proof-text" data-edit-key="index.story.p4.title">CIW Registered &amp; Regularly Inspected</div>
+                <div class="story-proof-sub" data-edit-key="index.story.p4.sub">Full regulatory compliance — your peace of mind</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:2rem">
+            <a href="about.html" class="btn btn-gold mag-btn">Read Our Full Story →</a>
+          </div>
+        </div>
+
+        <div class="story-right fade-up fade-up-delay-2">
+          <div class="reveal-mask" style="border-radius:var(--radius-xl)">
+            <img class="story-image-main" src="assets/images/interior.png" alt="Warm, welcoming lounge area at Valley Care Group">
+          </div>
+          <img class="story-image-accent" src="assets/images/caregiver.png" alt="Compassionate caregiver building rapport with resident">
+          <div class="story-award-badge">
+            <div class="story-award-num">9.9</div>
+            <div class="story-award-label">Care Rating</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       TESTIMONIALS — STAGGERED
+  ═══════════════════════════════════════════════ -->
+  <!-- Welsh hills divider — white to cream -->
+  <div class="welsh-hills-divider" style="background:#fff">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60" preserveAspectRatio="none" style="fill:var(--clr-cream)">
+      <path d="M0,60 L0,30 C180,8 320,0 480,12 C640,24 720,50 900,44 C1080,38 1200,10 1380,18 C1410,20 1430,28 1440,32 L1440,60 Z"/>
+    </svg>
+  </div>
+
+  <section class="testimonials-sig" id="testimonials">
+    <div class="container">
+      <div class="text-center fade-up">
+        <span class="section-eyebrow">Family Voices</span>
+        <h2 class="section-title">What Families <em>Say About Us</em></h2>
+        <p class="section-subtitle" style="margin:0 auto">Real words from real families — people who trusted us with their most precious loved ones.</p>
+      </div>
+
+      <div class="testimonials-sig-grid" id="testimonials-grid">
+
+        <div class="testimonial-sig-card fade-up fade-up-delay-1">
+          <div class="testi-quote-mark">"</div>
+          <div class="testi-stars">★ ★ ★ ★ ★</div>
+          <p class="testi-text">"The care Mum receives at Glan-yr-Afon is truly exceptional. The staff know her personally — her likes, her quirks, her stories. She's not just a resident, she's family to them. We could not have found a better place."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:linear-gradient(135deg,#1B4F72,#2E86C1)">S</div>
+            <div>
+              <div class="testi-name">Sarah M.</div>
+              <div class="testi-relation">Daughter of resident</div>
+              <div class="testi-home">Glan-yr-Afon Nursing Home</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-sig-card fade-up fade-up-delay-2">
+          <div class="testi-quote-mark">"</div>
+          <div class="testi-stars">★ ★ ★ ★ ★</div>
+          <p class="testi-text">"Dad is genuinely happy at Llys Gwyn. He has friends, joins activities he loves, and talks about the staff with real warmth. Seeing him flourish has been the most enormous relief for our whole family. We are so grateful."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:linear-gradient(135deg,#117A65,#1ABC9C)">R</div>
+            <div>
+              <div class="testi-name">Robert T.</div>
+              <div class="testi-relation">Son of resident</div>
+              <div class="testi-home">Llys Gwyn Residential Home</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-sig-card fade-up fade-up-delay-3">
+          <div class="testi-quote-mark">"</div>
+          <div class="testi-stars">★ ★ ★ ★ ★</div>
+          <p class="testi-text">"The nursing team at Glan-yr-Afon go above and beyond every single day. The clinical care is outstanding, and the home is always spotless and cheerful. When I visit my husband I leave feeling at peace, not worried. That's priceless."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:linear-gradient(135deg,#6C3483,#9B59B6)">A</div>
+            <div>
+              <div class="testi-name">Anita P.</div>
+              <div class="testi-relation">Wife of resident</div>
+              <div class="testi-home">Glan-yr-Afon Nursing Home</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Trust numbers row -->
+      <div class="fade-up" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem;text-align:center">
+        <div style="padding:1.5rem;background:#fff;border-radius:var(--radius-lg);border:1px solid rgba(0,0,0,0.06)">
+          <div style="font-family:var(--font-serif);font-size:2.5rem;font-weight:700;color:var(--clr-cobalt);line-height:1">9.9</div>
+          <div style="font-size:0.78rem;color:var(--clr-text-light);margin-top:0.3rem;text-transform:uppercase;letter-spacing:0.07em">Average Rating</div>
+        </div>
+        <div style="padding:1.5rem;background:#fff;border-radius:var(--radius-lg);border:1px solid rgba(0,0,0,0.06)">
+          <div style="font-family:var(--font-serif);font-size:2.5rem;font-weight:700;color:var(--clr-cobalt);line-height:1">41</div>
+          <div style="font-size:0.78rem;color:var(--clr-text-light);margin-top:0.3rem;text-transform:uppercase;letter-spacing:0.07em">Verified Reviews</div>
+        </div>
+        <div style="padding:1.5rem;background:#fff;border-radius:var(--radius-lg);border:1px solid rgba(0,0,0,0.06)">
+          <div style="font-family:var(--font-serif);font-size:2.5rem;font-weight:700;color:var(--clr-cobalt);line-height:1">100%</div>
+          <div style="font-size:0.78rem;color:var(--clr-text-light);margin-top:0.3rem;text-transform:uppercase;letter-spacing:0.07em">Recommend Us</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       CARE ENQUIRY — GLASSMORPHISM SECTION
+  ═══════════════════════════════════════════════ -->
+  <section class="enquiry-sig" id="enquiry">
+    <div class="enquiry-sig-bg"></div>
+    <div class="enquiry-sig-overlay"></div>
+    <div class="enquiry-blob enquiry-blob--1"></div>
+    <div class="enquiry-blob enquiry-blob--2"></div>
+
+    <div class="enquiry-sig-inner">
+      <div class="enquiry-sig-info fade-up">
+        <span class="section-eyebrow" style="color:var(--clr-gold-light)">Care Enquiry</span>
+        <h2 class="section-title">Let's Find the<br><em>Right Care Together</em></h2>
+        <p style="color:rgba(255,255,255,0.6);line-height:1.8;font-size:0.95rem;margin:1rem 0">Taking this step shows how much you care. Our friendly advisors will listen, understand, and guide you through every option — with compassion and absolutely no pressure.</p>
+
+        <div class="enquiry-process">
+          <div class="enq-step">
+            <div class="enq-step-num">1</div>
+            <div>
+              <div class="enq-step-title">Submit Your Enquiry</div>
+              <div class="enq-step-desc">Tell us about your loved one and their care needs.</div>
+            </div>
+          </div>
+          <div class="enq-step">
+            <div class="enq-step-num">2</div>
+            <div>
+              <div class="enq-step-title">We'll Be in Touch</div>
+              <div class="enq-step-desc">Our care advisors respond within 24 hours — often same day.</div>
+            </div>
+          </div>
+          <div class="enq-step">
+            <div class="enq-step-num">3</div>
+            <div>
+              <div class="enq-step-title">Book a Visit</div>
+              <div class="enq-step-desc">Come and see the home, meet the team, and feel at ease.</div>
+            </div>
+          </div>
+          <div class="enq-step">
+            <div class="enq-step-num">4</div>
+            <div>
+              <div class="enq-step-title">Tailored Care Plan</div>
+              <div class="enq-step-desc">A personalised plan created around your loved one's unique needs.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="enq-contact-bar">
+          <a href="tel:01633680217" class="enq-contact-link">📞 01633 680217</a>
+          <a href="mailto:care@valleycare.wales" class="enq-contact-link">✉️ care@valleycare.wales</a>
+        </div>
+      </div>
+
+      <!-- Glass form -->
+      <div class="glass-form-card fade-up fade-up-delay-2">
+        <div class="glass-form-title">Make a Care Enquiry</div>
+        <div class="glass-form-sub">Confidential &amp; no-obligation · UK GDPR compliant</div>
+
+        <form id="enquiry-form" onsubmit="submitEnquiry(event)">
+          <div class="glass-form-row">
+            <div>
+              <label class="glass-label" for="g-fname">First Name</label>
+              <input class="glass-input" type="text" id="g-fname" placeholder="First name" required>
+            </div>
+            <div>
+              <label class="glass-label" for="g-lname">Last Name</label>
+              <input class="glass-input" type="text" id="g-lname" placeholder="Last name" required>
+            </div>
+          </div>
+          <div class="glass-form-row">
+            <div>
+              <label class="glass-label" for="g-phone">Phone Number</label>
+              <input class="glass-input" type="tel" id="g-phone" placeholder="Your phone" required>
+            </div>
+            <div>
+              <label class="glass-label" for="g-email">Email Address</label>
+              <input class="glass-input" type="email" id="g-email" placeholder="Your email" required>
+            </div>
+          </div>
+          <div class="glass-form-group">
+            <label class="glass-label" for="g-home">Preferred Home</label>
+            <select class="glass-select" id="g-home">
+              <option value="">Select a home...</option>
+              <option>Glan-yr-Afon Nursing Home (Blackwood)</option>
+              <option>Llys Gwyn Residential Home</option>
+              <option>Pentwyn Nursing Home (Cardiff — Coming Soon)</option>
+              <option>Not sure — please advise me</option>
+            </select>
+          </div>
+          <div class="glass-form-group">
+            <label class="glass-label" for="g-type">Type of Care Needed</label>
+            <select class="glass-select" id="g-type">
+              <option value="">Select care type...</option>
+              <option>Nursing Care</option>
+              <option>Residential Care</option>
+              <option>Dementia Support</option>
+              <option>Palliative / End-of-Life Care</option>
+              <option>Respite Care</option>
+              <option>Not sure — please advise</option>
+            </select>
+          </div>
+          <div class="glass-form-group">
+            <label class="glass-label" for="g-msg">Tell Us About Your Loved One</label>
+            <textarea class="glass-textarea" id="g-msg" placeholder="Share any relevant information — care needs, preferences, or questions..."></textarea>
+          </div>
+          <button type="submit" class="glass-submit">Send Enquiry — We'll Be in Touch ✦</button>
+          <div class="glass-privacy">🔒 Strictly confidential · Your data is never shared or sold</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       CARE STRIP CTA
+  ═══════════════════════════════════════════════ -->
+  <div class="care-strip">
+    <div class="container" style="position:relative;z-index:2">
+      <div class="fade-up">
+        <div class="care-strip-eyebrow">Ready to Take the Next Step?</div>
+        <h2 class="care-strip-title">Come and See<br><em>What Makes Us Different</em></h2>
+        <p class="care-strip-sub">We welcome families to visit any time. Come and feel the warmth, meet our teams, and see why so many families trust us with the people they love most.</p>
+        <div class="care-strip-actions">
+          <a href="tel:01633680217" class="btn btn-gold btn-lg mag-btn">📞 Call Us: 01633 680217</a>
+          <a href="contact.html" class="btn btn-outline btn-lg mag-btn">📅 Book a Free Visit</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════ -->
+  <footer class="footer-sig">
+    <!-- Welsh hills going into footer -->
+    <div class="footer-hills">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 90" preserveAspectRatio="none" style="fill:var(--clr-midnight)">
+        <path d="M0,0 L0,50 C150,75 280,90 440,80 C600,70 680,40 840,32 C1000,24 1100,50 1260,62 C1380,70 1420,60 1440,56 L1440,0 Z" style="fill:linear-gradient(to bottom,#1C2E40,#0D1B2A)"/>
+        <!-- Two-tone hills for depth -->
+        <path d="M0,0 L0,30 C200,55 360,75 520,65 C680,55 760,22 920,16 C1080,10 1180,38 1320,50 C1400,56 1430,52 1440,50 L1440,0 Z" style="fill:rgba(255,255,255,0.03)"/>
+      </svg>
+    </div>
+
+    <div class="footer-sig-inner">
+      <div class="footer-sig-grid">
+        <div>
+          <div class="footer-glow-tagline">Valley Care Group</div>
+          <div class="nav-logo-tagline" style="margin-bottom:1rem;font-size:0.72rem">CARING WITH HEART · EST. 2005</div>
+          <p class="footer-brand-desc">Providing compassionate, person-centred nursing and residential care across South Wales. CIW registered. Family values at the core of everything we do.</p>
+          <div class="footer-social" style="margin-top:1.5rem">
+            <a href="#" class="footer-social-btn" title="Facebook">𝐟</a>
+            <a href="#" class="footer-social-btn" title="Twitter">𝕏</a>
+            <a href="#" class="footer-social-btn" title="LinkedIn">in</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Our Homes</div>
+          <div class="footer-links">
+            <a href="homes/glan-yr-afon.html">Glan-yr-Afon Nursing Home</a>
+            <a href="homes/llys-gwyn.html">Llys Gwyn Residential Home</a>
+            <a href="homes/pentwyn.html">Pentwyn Nursing Home (Soon)</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Quick Links</div>
+          <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="services.html">Our Services</a>
+            <a href="jobs.html">Careers</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="contact.html">Book a Visit</a>
+            <a href="#enquiry">Care Enquiry</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Get In Touch</div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">📞</span>
+            <div>
+              <div class="footer-contact-label">Phone</div>
+              <div class="footer-contact-value"><a href="tel:01633680217" style="color:rgba(255,255,255,0.55)">01633 680217</a></div>
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">✉️</span>
+            <div>
+              <div class="footer-contact-label">Email</div>
+              <div class="footer-contact-value"><a href="mailto:care@valleycare.wales" style="color:rgba(255,255,255,0.55)">care@valleycare.wales</a></div>
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">📍</span>
+            <div>
+              <div class="footer-contact-label">Glan-yr-Afon</div>
+              <div class="footer-contact-value">Off Ford Road, Fleur-de-Lys,<br>Blackwood NP12 3WA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2025 Valley Care Group. All rights reserved. Registered in England &amp; Wales No. 5745419</div>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms &amp; Conditions</a>
+          <a href="#">CIW Registration</a>
+          <a href="#">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky Buttons -->
+  <div class="sticky-enquiry">
+    <button class="sticky-btn sticky-btn-primary" onclick="document.getElementById('enquiry').scrollIntoView({behavior:'smooth'})">💬 Care Enquiry</button>
+    <a href="tel:01633680217" class="sticky-btn sticky-btn-phone">📞 Call Now</a>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <span class="toast-icon">✅</span>
+    <div>
+      <div class="toast-title">Enquiry Sent!</div>
+      <div class="toast-msg">Thank you — our care team will be in touch within 24 hours.</div>
+    </div>
+  </div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/signature.js"></script>
+  <script src="assets/js/live-edit.js"></script>
+  <script>
+  // ── Content loader: fetches /api/content and applies to DOM ──────────────
+  (async function () {
+    function setText(id, val) {
+      if (!val && val !== 0) return;
+      const el = document.getElementById(id);
+      if (el) el.textContent = val;
+    }
+    try {
+      const res = await fetch((window.API_BASE || '') + '/api/content');
+      if (!res.ok) return;
+      const c = await res.json();
+      const s = c.site || {}, h = c.homepage || {};
+
+      // Announcement bar
+      if (s.announcementEnabled === false) {
+        const bar = document.getElementById('announcebar');
+        if (bar) bar.style.display = 'none';
+      }
+      if (s.announcementText) setText('announce-text', s.announcementText);
+      if (s.announcementLink) {
+        const a = document.getElementById('announce-link');
+        if (a) a.href = s.announcementLink;
+      }
+
+      // Hero
+      setText('hero-badge-text', h.heroBadge);
+      setText('ht1', h.heroLine1);
+      setText('ht2', h.heroLine2);
+      setText('ht3', h.heroLine3);
+      setText('hero-subtitle', h.heroSubtitle);
+
+      // Stats
+      for (let i = 1; i <= 4; i++) {
+        const v = h[`stat${i}Value`];
+        if (v !== undefined) {
+          setText(`sl${i}`, h[`stat${i}Label`]);
+          setText(`ss${i}`, h[`stat${i}Suffix`]);
+          // Update counter target and display
+          const el = document.getElementById(`sv${i}`);
+          if (el) { el.dataset.target = v; el.textContent = v; }
+        }
+      }
+
+      // Testimonials
+      const testis = c.testimonials;
+      if (testis && testis.length) {
+        const grid = document.getElementById('testimonials-grid');
+        if (grid) grid.innerHTML = testis.map(t => `
+          <div class="testimonial-sig-card fade-up">
+            <div class="testi-quote-mark">"</div>
+            <div class="testi-stars">★ ★ ★ ★ ★</div>
+            <p class="testi-text">"${escH(t.text)}"</p>
+            <div class="testi-author">
+              <div class="testi-avatar" style="background:linear-gradient(135deg,${escH(t.avatarColor||'#1B4F72')},#2E86C1)">${escH(t.initials||t.name[0])}</div>
+              <div>
+                <div class="testi-name">${escH(t.name)}</div>
+                <div class="testi-relation">${escH(t.relation)}</div>
+                <div class="testi-home">${escH(t.home)}</div>
+              </div>
+            </div>
+          </div>`).join('');
+      }
+    } catch (_) { /* fail silently — static content remains */ }
+
+    function escH(s) {
+      return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+  })();
+  </script>
+</body>
+</html>

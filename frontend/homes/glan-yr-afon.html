@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glan-yr-Afon Nursing Home — Valley Care Group</title>
+  <meta name="description" content="Glan-yr-Afon Nursing Home in Blackwood offers specialist nursing, dementia, palliative and respite care. Rated 9.9 on carehome.co.uk with 41 reviews.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏡</text></svg>">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+</head>
+<body>
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="nav-logo-icon">🏡</div>
+        <div class="nav-logo-text"><span class="nav-logo-name">Valley Care Group</span><span class="nav-logo-tagline">Caring with Heart · Since 2005</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a><a href="../about.html">About Us</a><a href="../homes.html" class="active">Our Homes</a><a href="../services.html">Services</a><a href="../jobs.html">Careers</a><a href="../contact.html">Contact</a>
+      </div>
+      <button class="nav-cta-btn" onclick="document.getElementById('enquiry').scrollIntoView({behavior:'smooth'})">Care Enquiry</button>
+      <div class="hamburger" id="hamburger" onclick="toggleMobileNav()"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="../index.html" onclick="toggleMobileNav()">Home</a><a href="../about.html" onclick="toggleMobileNav()">About Us</a><a href="../homes.html" onclick="toggleMobileNav()">Our Homes</a><a href="../services.html" onclick="toggleMobileNav()">Services</a><a href="../jobs.html" onclick="toggleMobileNav()">Careers</a><a href="../contact.html" onclick="toggleMobileNav()">Contact</a>
+    <a href="#enquiry" onclick="toggleMobileNav()" style="color:var(--clr-gold)">Care Enquiry</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="home-detail-hero" style="background-image:url('../assets/images/hero_bg.png')">
+    <div class="home-detail-content">
+      <div class="breadcrumbs">
+        <a href="../index.html">Home</a> › <a href="../homes.html">Our Homes</a> › <span>Glan-yr-Afon</span>
+      </div>
+      <div class="hero-badge" style="margin-bottom:1rem"><span class="hero-badge-dot"></span>Currently Open · CIW Registered</div>
+      <h1 style="font-family:var(--font-serif);font-size:clamp(2rem,5vw,4rem);font-weight:700;color:#fff;line-height:1.1;max-width:700px;margin-bottom:0.75rem" data-edit-key="glan.hero.title">
+        Glan-yr-Afon<br><em style="font-style:italic;color:var(--clr-gold-light)">Nursing Home</em>
+      </h1>
+      <p style="color:rgba(255,255,255,0.75);font-size:1rem;margin-bottom:1.5rem" data-edit-key="glan.hero.sub">📍 Off Ford Road, Fleur-de-Lys, Blackwood NP12 3WA</p>
+      <div class="hero-actions">
+        <button class="btn btn-gold" onclick="document.getElementById('enquiry').scrollIntoView({behavior:'smooth'})">💬 Make an Enquiry</button>
+        <a href="tel:01633680217" class="btn btn-outline">📞 01633 680217</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RATING STRIP -->
+  <div class="rating-strip">
+    <div class="container">
+      <div class="rating-strip-inner">
+        <div class="rating-badge-large">
+          <span class="rating-num">9.9</span>
+          <div>
+            <div class="rating-label">Outstanding Rating</div>
+            <div class="rating-sub">carehome.co.uk · 41 Reviews</div>
+          </div>
+        </div>
+        <div class="rating-divider"></div>
+        <div class="rating-fact"><span class="rating-fact-label">Type</span><span class="rating-fact-value">Nursing Home</span></div>
+        <div class="rating-divider"></div>
+        <div class="rating-fact"><span class="rating-fact-label">Registration</span><span class="rating-fact-value">CIW Registered</span></div>
+        <div class="rating-divider"></div>
+        <div class="rating-fact"><span class="rating-fact-label">Location</span><span class="rating-fact-value">Blackwood, Caerphilly</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <section class="section" style="background:var(--clr-cream)">
+    <div class="container">
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="overview" onclick="switchTab('overview')">Overview</button>
+        <button class="tab-btn" data-tab="services" onclick="switchTab('services')">Services</button>
+        <button class="tab-btn" data-tab="life" onclick="switchTab('life')">Life Here</button>
+        <button class="tab-btn" data-tab="team" onclick="switchTab('team')">Our Team</button>
+        <button class="tab-btn" data-tab="gallery" onclick="switchTab('gallery')">Gallery</button>
+      </div>
+
+      <!-- Overview -->
+      <div class="tab-panel active" id="tab-overview">
+        <div class="home-meta-grid">
+          <div class="fade-up">
+            <span class="section-eyebrow" data-edit-key="glan.about.eyebrow">About Glan-yr-Afon</span>
+            <h2 class="section-title" data-edit-key="glan.about.title">Specialist Nursing Care in <em>Blackwood</em></h2>
+            <p class="body-text mb-med" data-edit-key="glan.about.p1">Glan-yr-Afon Nursing Home is set in beautiful Blackwood countryside and provides a warm, caring environment for residents who require nursing, residential, or specialist care. Our highly qualified team delivers round-the-clock support with an unwavering commitment to dignity, comfort, and person-centred care.</p>
+            <p class="body-text mb-med" data-edit-key="glan.about.p2">Registered and regularly inspected by the Care Inspectorate Wales (CIW), we are proud of our outstanding reputation — with a remarkable <strong>9.9 rating</strong> and over 41 reviews on carehome.co.uk.</p>
+            <p class="body-text" style="margin-bottom:2rem" data-edit-key="glan.about.p3">We work closely with local NHS services including the Wound Research Team at UHW, the Palliative Care Team at St Davids, and the Marie Curie Centre, Holme Towers to ensure expert, co-ordinated care for every resident.</p>
+            <button class="btn btn-primary" onclick="document.getElementById('enquiry').scrollIntoView({behavior:'smooth'})">Make an Enquiry →</button>
+          </div>
+          <div class="fade-up fade-up-delay-2">
+            <div class="home-facts">
+              <h3 class="home-facts-title">Key Information</h3>
+              <div class="home-fact"><span class="home-fact-label">Home Type</span><span class="home-fact-value">Nursing Home</span></div>
+              <div class="home-fact"><span class="home-fact-label">Registration</span><span class="home-fact-value">CIW Registered</span></div>
+              <div class="home-fact"><span class="home-fact-label">carehome.co.uk Rating</span><span class="home-fact-value" style="color:var(--clr-gold)">9.9 / 10 ⭐</span></div>
+              <div class="home-fact"><span class="home-fact-label">Reviews</span><span class="home-fact-value">41 Reviews</span></div>
+              <div class="home-fact"><span class="home-fact-label">Phone</span><a href="tel:01633680217" class="home-fact-value" style="color:var(--clr-cobalt)">01633 680217</a></div>
+              <div class="home-fact"><span class="home-fact-label">Email</span><a href="mailto:care@valleycare.wales" class="home-fact-value" style="color:var(--clr-cobalt)">care@valleycare.wales</a></div>
+              <div class="home-fact"><span class="home-fact-label">Visitors</span><span class="home-fact-value">Welcome anytime</span></div>
+            </div>
+            <div class="availability-banner">
+              <div class="availability-label">Bed Availability</div>
+              <div class="availability-text">Contact Us to Check</div>
+              <a href="tel:01633680217" class="availability-phone">📞 01633 680217</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div class="tab-panel" id="tab-services">
+        <div class="fade-up">
+          <h2 class="section-title" style="margin-bottom:0.75rem">Care <em>Services Offered</em></h2>
+          <p class="body-text" style="margin-bottom:2.5rem;max-width:680px">At Glan-yr-Afon we provide a comprehensive range of nursing and care services tailored to each individual resident.</p>
+          <div class="services-list-grid">
+            <div class="service-list-item">🩺 Qualified Nursing Care (24/7)</div>
+            <div class="service-list-item">🧠 Specialist Dementia Support</div>
+            <div class="service-list-item">🌿 Palliative &amp; End-of-Life Care</div>
+            <div class="service-list-item">🔄 Respite &amp; Convalescence Care</div>
+            <div class="service-list-item">💊 Medication Management</div>
+            <div class="service-list-item">🍽️ Nutritious Freshly-Cooked Meals</div>
+            <div class="service-list-item">🎭 Social &amp; Leisure Activities</div>
+            <div class="service-list-item">✂️ Weekly Hairdresser &amp; Chiropodist</div>
+            <div class="service-list-item">🛁 Personal Care Assistance</div>
+            <div class="service-list-item">🧺 Laundry &amp; Room Cleaning</div>
+            <div class="service-list-item">📖 Book &amp; Games Library</div>
+            <div class="service-list-item">🛒 Weekly Mobile Shop</div>
+            <div class="service-list-item">⛪ Religious &amp; Cultural Support</div>
+            <div class="service-list-item">🎵 Music &amp; Entertainment</div>
+            <div class="service-list-item">👨‍👩‍👧 Family Visits — Anytime</div>
+            <div class="service-list-item">💻 Video Conferencing Facilities</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Life Here -->
+      <div class="tab-panel" id="tab-life">
+        <div class="fade-up">
+          <h2 class="section-title" style="margin-bottom:2rem">Life at <em>Glan-yr-Afon</em></h2>
+          <div class="life-grid">
+            <div class="life-card">
+              <span class="life-icon">🌅</span>
+              <h3 class="life-title">A Day in the Home</h3>
+              <p class="life-desc">Residents enjoy a fulfilling, structured daily routine while retaining the freedom to make personal choices. Each day is enriched with activities, social time, and individual care moments.</p>
+            </div>
+            <div class="life-card">
+              <span class="life-icon">🍽️</span>
+              <h3 class="life-title">Meals &amp; Nutrition</h3>
+              <p class="life-desc">Our catering team prepares freshly cooked meals daily, catering for all dietary needs and personal preferences. Great food is central to quality of life.</p>
+            </div>
+            <div class="life-card">
+              <span class="life-icon">🎭</span>
+              <h3 class="life-title">Activities &amp; Fun</h3>
+              <p class="life-desc">Our Activities Organiser coordinates a weekly programme including music &amp; movement, keep fit, games, quizzes, bingo, outings, and seasonal parties.</p>
+            </div>
+            <div class="life-card">
+              <span class="life-icon">👨‍👩‍👧</span>
+              <h3 class="life-title">Family &amp; Community</h3>
+              <p class="life-desc">Families are warmly welcomed at any time. A quiet private lounge is available for personal visits. We encourage residents to maintain all their cherished relationships.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team -->
+      <div class="tab-panel" id="tab-team">
+        <div class="fade-up">
+          <h2 class="section-title" style="margin-bottom:0.75rem">Meet Our <em>Care Teams</em></h2>
+          <p class="body-text" style="margin-bottom:2.5rem;max-width:650px">Our nursing home operates three dedicated care teams, each led by a qualified Registered General Nurse (RGN). We never use agency staff — continuity is our core commitment.</p>
+          <div class="team-grid">
+            <div class="team-card">
+              <div class="team-avatar team-avatar--blue">👩‍⚕️</div>
+              <div class="team-info">
+                <div class="team-name">Qualified Nursing Team</div>
+                <div class="team-role">RGN-Led Care · 24/7</div>
+              </div>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar team-avatar--teal">🧑‍🔬</div>
+              <div class="team-info">
+                <div class="team-name">Senior Care Assistants</div>
+                <div class="team-role">Specialist Training</div>
+              </div>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar team-avatar--purple">👥</div>
+              <div class="team-info">
+                <div class="team-name">Care Support Team</div>
+                <div class="team-role">NVQ Level 2+</div>
+              </div>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar team-avatar--gold">🏥</div>
+              <div class="team-info">
+                <div class="team-name">Clinical Specialists</div>
+                <div class="team-role">External Partnerships</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery -->
+      <div class="tab-panel" id="tab-gallery">
+        <div class="fade-up">
+          <h2 class="section-title" style="margin-bottom:0.5rem">Gallery</h2>
+          <p class="body-text" style="margin-bottom:2rem">A glimpse inside our warm and welcoming home.</p>
+          <div class="gallery-grid">
+            <div class="gallery-item"><img src="../assets/images/hero_bg.png" alt="Glan-yr-Afon exterior — Welsh countryside setting"><div class="gallery-item-overlay">🔍</div></div>
+            <div class="gallery-item"><img src="../assets/images/interior.png" alt="Warm, welcoming lounge area"><div class="gallery-item-overlay">🔍</div></div>
+            <div class="gallery-item"><img src="../assets/images/caregiver.png" alt="Compassionate care from our nursing team"><div class="gallery-item-overlay">🔍</div></div>
+            <div class="gallery-item"><img src="../assets/images/hero_bg.png" alt="Beautiful Welsh countryside surroundings"><div class="gallery-item-overlay">🔍</div></div>
+            <div class="gallery-item"><img src="../assets/images/interior.png" alt="Comfortable private room"><div class="gallery-item-overlay">🔍</div></div>
+            <div class="gallery-item"><img src="../assets/images/caregiver.png" alt="Activities and daily life"><div class="gallery-item-overlay">🔍</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENQUIRY -->
+  <section class="enquiry-section section" id="enquiry">
+    <div class="container">
+      <div class="enquiry-inner">
+        <div class="enquiry-info fade-up">
+          <span class="section-eyebrow" style="color:var(--clr-gold-light)">Enquire About a Place</span>
+          <h2 class="section-title" style="color:#fff">Ready to Explore <em style="color:var(--clr-gold-light)">Glan-yr-Afon?</em></h2>
+          <p class="section-subtitle" style="color:rgba(255,255,255,0.7)">Our friendly care advisors are ready to answer all your questions, arrange a visit, and guide you through next steps — with no pressure at all.</p>
+          <div style="margin-top:2rem">
+            <a href="tel:01633680217" class="contact-inline-link">📞 01633 680217</a>
+            <a href="mailto:care@valleycare.wales" class="contact-inline-link">✉️ care@valleycare.wales</a>
+          </div>
+        </div>
+        <div class="enquiry-form-card fade-up fade-up-delay-2">
+          <div class="form-title">Enquire About a Place</div>
+          <div class="form-subtitle">Glan-yr-Afon Nursing Home, Blackwood</div>
+          <form onsubmit="submitEnquiry(event)">
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">Your Name</label><input class="form-input" type="text" placeholder="Full name" required></div>
+              <div class="form-group"><label class="form-label">Phone</label><input class="form-input" type="tel" placeholder="Phone number" required></div>
+            </div>
+            <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="Email address" required></div>
+            <div class="form-group">
+              <label class="form-label">Type of Care Needed</label>
+              <select class="form-select">
+                <option>Nursing Care</option><option>Residential Care</option><option>Dementia Support</option><option>Palliative Care</option><option>Respite Care</option><option>Not sure</option>
+              </select>
+            </div>
+            <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Tell us about your loved one's needs..."></textarea></div>
+            <button type="submit" class="form-submit">Send Enquiry →</button>
+            <div class="form-privacy">🔒 Strictly confidential · UK GDPR compliant</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="padding-top:0">
+        <div class="footer-copy">© 2025 Valley Care Group · <a href="../index.html" style="color:var(--clr-gold)">Back to Homepage</a></div>
+        <div class="footer-bottom-links"><a href="../homes.html">Our Homes</a><a href="../contact.html">Contact</a><a href="../jobs.html">Careers</a></div>
+      </div>
+    </div>
+  </footer>
+  <div class="sticky-enquiry">
+    <button class="sticky-btn sticky-btn-primary" onclick="document.getElementById('enquiry').scrollIntoView({behavior:'smooth'})">💬 Enquire</button>
+    <a href="tel:01633680217" class="sticky-btn sticky-btn-phone">📞 Call</a>
+  </div>
+  <div class="toast" id="toast"><span class="toast-icon">✅</span><div><div class="toast-title">Enquiry Sent!</div><div class="toast-msg">Thank you — we'll be in touch within 24 hours.</div></div></div>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/live-edit.js"></script>
+</body>
+</html>

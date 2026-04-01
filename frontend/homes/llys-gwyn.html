@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Llys Gwyn Residential Home — Valley Care Group</title>
+  <meta name="description" content="Llys Gwyn Residential Home offers warm, person-centred residential care with vibrant social activities, excellent meals, and a strong sense of community in Wales.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏡</text></svg>">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+</head>
+<body>
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="nav-logo-icon">🏡</div>
+        <div class="nav-logo-text"><span class="nav-logo-name">Valley Care Group</span><span class="nav-logo-tagline">Caring with Heart · Since 2005</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a><a href="../about.html">About Us</a><a href="../homes.html" class="active">Our Homes</a><a href="../services.html">Services</a><a href="../jobs.html">Careers</a><a href="../contact.html">Contact</a>
+      </div>
+      <button class="nav-cta-btn" onclick="document.getElementById('enquiry').scrollIntoView({behavior:'smooth'})">Care Enquiry</button>
+      <div class="hamburger" id="hamburger" onclick="toggleMobileNav()"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="../index.html" onclick="toggleMobileNav()">Home</a><a href="../about.html" onclick="toggleMobileNav()">About Us</a><a href="../homes.html" onclick="toggleMobileNav()">Our Homes</a><a href="../services.html" onclick="toggleMobileNav()">Services</a><a href="../jobs.html" onclick="toggleMobileNav()">Careers</a><a href="../contact.html" onclick="toggleMobileNav()">Contact</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="home-detail-hero" style="background-image:url('../assets/images/interior.png')">
+    <div class="home-detail-content">
+      <div class="breadcrumbs">
+        <a href="../index.html">Home</a> › <a href="../homes.html">Our Homes</a> › <span>Llys Gwyn</span>
+      </div>
+      <div class="hero-badge" style="margin-bottom:1rem"><span class="hero-badge-dot"></span>Currently Open · CIW Registered</div>
+      <h1 style="font-family:var(--font-serif);font-size:clamp(2.2rem,5vw,4rem);font-weight:700;color:#fff;line-height:1.1;max-width:700px;margin-bottom:0.75rem" data-edit-key="llys.hero.title">Llys Gwyn<br><em style="font-style:italic;color:var(--clr-gold-light)">Residential Home</em></h1>
+      <p style="color:rgba(255,255,255,0.75);font-size:1.05rem;margin-bottom:1.5rem" data-edit-key="llys.hero.sub">Wales</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <button class="btn btn-gold" onclick="document.getElementById('enquiry').scrollIntoView({behavior:'smooth'})">💬 Make an Enquiry</button>
+        <a href="tel:01633680217" class="btn btn-outline">📞 Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="section" style="background:var(--clr-cream)">
+    <div class="container">
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="overview" onclick="switchTab('overview')">Overview</button>
+        <button class="tab-btn" data-tab="life" onclick="switchTab('life')">Life at Llys Gwyn</button>
+        <button class="tab-btn" data-tab="activities" onclick="switchTab('activities')">Activities</button>
+        <button class="tab-btn" data-tab="gallery" onclick="switchTab('gallery')">Gallery</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-overview">
+        <div class="home-meta-grid">
+          <div class="fade-up">
+            <span class="section-eyebrow" data-edit-key="llys.about.eyebrow">About Llys Gwyn</span>
+            <h2 class="section-title" data-edit-key="llys.about.title">A True Home, <em>Not Just Care</em></h2>
+            <p style="color:var(--clr-text-mid);line-height:1.8;margin-bottom:1.5rem" data-edit-key="llys.about.p1">Llys Gwyn Residential Home is a warm, welcoming environment where residents are treated as individuals — with their own histories, preferences, and personalities celebrated every day. We offer a true home-from-home experience, balancing attentive personal care with genuine independence.</p>
+            <p style="color:var(--clr-text-mid);line-height:1.8;margin-bottom:1.5rem" data-edit-key="llys.about.p2">Our dedicated staff team maintains strong continuity of care, building lasting bonds with residents and their families. Quality assurance is central to our ethos — we are fully CIW registered and regularly assessed.</p>
+            <p style="color:var(--clr-text-mid);line-height:1.8;margin-bottom:2rem" data-edit-key="llys.about.p3">We aim to make every resident's day enriching and joyful. From lively social activities to quiet moments of personal reflection, Llys Gwyn caters for all temperaments and care needs.</p>
+            <button class="btn btn-primary" onclick="document.getElementById('enquiry').scrollIntoView({behavior:'smooth'})">Make an Enquiry →</button>
+          </div>
+          <div class="fade-up fade-up-delay-2">
+            <div class="home-facts">
+              <h3 style="font-family:var(--font-serif);font-size:1.2rem;color:var(--clr-midnight);margin-bottom:1.25rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(0,0,0,0.08)">Key Information</h3>
+              <div class="home-fact"><span class="home-fact-label">Home Type</span><span class="home-fact-value">Residential Home</span></div>
+              <div class="home-fact"><span class="home-fact-label">Registration</span><span class="home-fact-value">CIW Registered</span></div>
+              <div class="home-fact"><span class="home-fact-label">Location</span><span class="home-fact-value">Wales</span></div>
+              <div class="home-fact"><span class="home-fact-label">Agency Staff Policy</span><span class="home-fact-value">No Agency Staff</span></div>
+              <div class="home-fact"><span class="home-fact-label">Visitors</span><span class="home-fact-value">Welcome Anytime</span></div>
+              <div class="home-fact"><span class="home-fact-label">Meals</span><span class="home-fact-value">Freshly Cooked Daily</span></div>
+              <div class="home-fact"><span class="home-fact-label">Phone</span><a href="tel:01633680217" class="home-fact-value" style="color:var(--clr-cobalt)">01633 680217</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-life">
+        <div class="fade-up">
+          <h2 class="section-title">Life at <em>Llys Gwyn</em></h2>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;margin-top:2rem">
+            ${[['🏠','Accommodation','Each resident has their own beautifully furnished room which they are encouraged to personalise with furniture, photos, and personal belongings to truly make it their own.'],['🍽️','Meals & Dining','Our catering team produces freshly cooked meals from quality ingredients every day, with menus carefully designed to accommodate all dietary requirements and personal tastes. Refreshments are available throughout the day.'],['🎭','Social Activities','Llys Gwyn has a vibrant community feel. Residents enjoy music, games, quizzes, bingo, and regular outings. Our activities organiser ensures there is always something to look forward to.'],['👨‍👩‍👧','Family & Community','Families are warmly welcomed at any time, and are encouraged to be involved in daily life. A private lounge is always available for personal visits. We also celebrate cultural and religious events together.'],['🔒','Safety','The safety and security of all residents is our top priority. Our building and grounds are carefully maintained, with appropriate measures in place to ensure everyone feels safe and at home.'],['🤝','Special Services','We offer a range of additional services including hairdressing, chiropody, and support for cultural and religious activities. Holy Communion is available regularly for those who wish to participate.']].map(([icon,title,desc])=>`<div style="display:flex;gap:1rem;padding:1.5rem;background:#fff;border-radius:var(--radius-md);border:1px solid rgba(0,0,0,0.06)"><span style="font-size:1.75rem;flex-shrink:0">${icon}</span><div><h4 style="font-family:var(--font-serif);color:var(--clr-midnight);margin-bottom:0.5rem">${title}</h4><p style="font-size:0.875rem;color:var(--clr-text-mid);line-height:1.65">${desc}</p></div></div>`).join('')}
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-activities">
+        <div class="fade-up">
+          <h2 class="section-title">Activities & <em>Wellbeing</em></h2>
+          <p style="color:var(--clr-text-mid);margin-bottom:2.5rem;max-width:650px;line-height:1.8">We encourage all residents to remain active, social, and engaged. Our programme of activities is designed to suit all abilities and interests.</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem">
+            ${['🏋️ Keep Fit Sessions','🎵 Music & Movement','🃏 Card Games & Puzzles','❓ Quizzes & Trivia','🎰 Bingo','🚌 Community Outings','🎤 Live Entertainment','🎉 Seasonal Parties','🙏 Religious Services','✂️ Hairdresser (Weekly)','🦶 Chiropodist (Weekly)','🛍️ Mobile Shop (Weekly)','📖 Books & Large Print','📰 Daily Newspapers','🎨 Arts & Crafts','👨‍👩‍👧 Family Events'].map(a=>`<div style="padding:0.85rem;background:#fff;border-radius:var(--radius-md);border:1px solid rgba(0,0,0,0.06);font-size:0.875rem;color:var(--clr-text-mid)">${a}</div>`).join('')}
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-gallery">
+        <div class="fade-up">
+          <h2 class="section-title" style="margin-bottom:0.5rem">Gallery</h2>
+          <p style="color:var(--clr-text-mid);margin-bottom:2rem">A peek inside Llys Gwyn's warm and homely spaces.</p>
+          <div class="gallery-grid">
+            ${['interior','caregiver','hero_bg','interior','caregiver','hero_bg'].map((img,i)=>`<div class="gallery-item"><img src="../assets/images/${img}.png" alt="Llys Gwyn gallery image ${i+1}"><div class="gallery-item-overlay">🔍</div></div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enquiry -->
+  <section class="enquiry-section section" id="enquiry">
+    <div class="container">
+      <div class="enquiry-inner">
+        <div class="enquiry-info fade-up">
+          <span class="section-eyebrow" style="color:var(--clr-gold-light)">Enquire About a Place</span>
+          <h2 class="section-title" style="color:#fff">Come and See <em style="color:var(--clr-gold-light)">Llys Gwyn</em></h2>
+          <p class="section-subtitle" style="color:rgba(255,255,255,0.7)">We'd love to welcome you and your family for a visit. Come and meet our team, look around the home, and see why so many families trust us with the people they love most.</p>
+        </div>
+        <div class="enquiry-form-card fade-up fade-up-delay-2">
+          <div class="form-title">Enquire About a Place</div>
+          <div class="form-subtitle">Llys Gwyn Residential Home</div>
+          <form onsubmit="submitEnquiry(event)">
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">Your Name</label><input class="form-input" type="text" placeholder="Full name" required></div>
+              <div class="form-group"><label class="form-label">Phone</label><input class="form-input" type="tel" placeholder="Phone number" required></div>
+            </div>
+            <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="Email address" required></div>
+            <div class="form-group"><label class="form-label">Care Type</label><select class="form-select"><option>Residential Care</option><option>Respite Care</option><option>Not sure</option></select></div>
+            <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Tell us about your loved one..."></textarea></div>
+            <button type="submit" class="form-submit">Send Enquiry →</button>
+            <div class="form-privacy">🔒 Strictly confidential · UK GDPR compliant</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom" style="padding-top:0"><div class="footer-copy">© 2025 Valley Care Group · <a href="../index.html" style="color:var(--clr-gold)">Back to Homepage</a></div><div class="footer-bottom-links"><a href="../index.html">Home</a><a href="../homes.html">Our Homes</a><a href="../contact.html">Contact</a></div></div></div></footer>
+  <div class="sticky-enquiry"><button class="sticky-btn sticky-btn-primary" onclick="document.getElementById('enquiry').scrollIntoView({behavior:'smooth'})">💬 Enquire</button><a href="tel:01633680217" class="sticky-btn sticky-btn-phone">📞 Call</a></div>
+  <div class="toast" id="toast"><span class="toast-icon">✅</span><div><div class="toast-title">Enquiry Sent!</div><div class="toast-msg">Thank you — we'll be in touch within 24 hours.</div></div></div>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/live-edit.js"></script>
+</body>
+</html>
